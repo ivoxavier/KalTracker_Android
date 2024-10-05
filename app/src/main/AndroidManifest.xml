@@ -23,7 +23,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.ivoxavier.kaltracker.view.UserProfileConfigActivity" />
+        <activity android:name="com.ivoxavier.kaltracker.view.UserProfileConfigActivity"
+            android:theme="@style/Theme.KalTracker"/>
     </application>
 
 </manifest>

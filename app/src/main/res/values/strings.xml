@@ -1,6 +1,22 @@
 <resources>
     <string name="app_name">KalTracker</string>
     <string name="user_config_profile_objetive_tab">Objetivo</string>
-    <string name="user_config_profile_user_details_tab">Sexo e Atividade</string>
-    <string name="user_config_profile_body_measure_tab">Idade, Peso e Altura</string>
+    <string name="user_config_profile_user_details_tab">Sexo e Idade</string>
+    <string name="user_config_profile_body_measure_tab">Altura e Peso</string>
+    <string name="user_config_profile_header_plan_text">Plano</string>
+    <string name="user_config_profile_header_activity_text">Nível de Atividade</string>
+    <string name="user_config_profile_header_sex_at_birth_text">Sexo à Nascença</string>
+    <string name="user_config_profile_header_age_text">Idade</string>
+    <string name="user_config_profile_header_body_measure_text">Altura e Peso</string>
+    <string name="user_config_profile_placeholder_height_measure_text">Altura em cm(150)</string>
+    <string name="user_config_profile_placeholder_weight_measure_text">Peso em kg(50)</string>
+    <string name="user_config_profile_card_loose_weight">Perder Peso</string>
+    <string name="user_config_profile_card_maintain_weight">Manter Peso</string>
+    <string name="user_config_profile_card_gain_weight">Ganhar Peso</string>
+    <string name="user_config_profile_card_very_light_activity">Muito Leve</string>
+    <string name="user_config_profile_card_light_activity">Leve</string>
+    <string name="user_config_profile_card_moderate_activity">Moderado</string>
+    <string name="user_config_profile_card_heavy_activity">Alto</string>
+    <string name="user_config_profile_card_male_sex_at_birth">Masculino</string>
+    <string name="user_config_profile_card_female_sex_at_birth">Feminino</string>
 </resources>

@@ -1,26 +1,9 @@
 package com.ivoxavier.kaltracker.view
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.ui.Alignment
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Card
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.ivoxavier.kaltracker.ui.theme.KalTrackerTheme
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.compose.material3.CardElevation
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
@@ -35,7 +18,6 @@ import com.ivoxavier.kaltracker.viewmodel.UserProfileConfigViewModel
 
 class UserProfileConfigActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: UserProfileConfigViewModel
     private lateinit var binding: ActivityUserProfileConfigBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,6 +44,9 @@ class UserProfileConfigActivity : AppCompatActivity() {
 }
 
 class ViewPagerAdapter(private val activity: AppCompatActivity) : FragmentStateAdapter(activity) {
+
+    private lateinit var viewModel: UserProfileConfigViewModel
+
     override fun getItemCount(): Int = 3
 
     override fun createFragment(position: Int): Fragment {
