@@ -45,7 +45,6 @@ class UserDetailsFragment(): Fragment() {
         }
     }
 
-fun setSexAtBirth(sex: Int){}
 
 @Composable
 fun UserDetailsList(){

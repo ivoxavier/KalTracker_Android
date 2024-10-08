@@ -4,28 +4,28 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.ivoxavier.kaltracker.service.repository.utils.MifflinStJeorEquation
+import com.ivoxavier.kaltracker.service.repository.utils.mifflinStJeorEquation
 
 class UserProfileConfigViewModel(application: Application) : AndroidViewModel(application) {
 
 
-    private val _age = MutableLiveData<Int>(15)
+    private val _age = MutableLiveData<Int>(15)//15
     val age : LiveData<Int> = _age
 
-    private val _plan = MutableLiveData<Int>(0)
+    private val _plan = MutableLiveData<Int>(0)//0
     val plan : LiveData<Int> = _plan
 
-    private val _activity = MutableLiveData<Int>(0)
+    private val _activity = MutableLiveData<Int>(0)//0
     val activity : LiveData<Int> = _activity
 
-    private val _height = MutableLiveData<Int>(150)
+    private val _height = MutableLiveData<Int>(150)//150
     val height : LiveData<Int> = _height
 
-    private val _weight = MutableLiveData<Int>(50)
+    private val _weight = MutableLiveData<Int>(50)//50
     val weight : LiveData<Int> = _weight
 
 
-    private val _sex_at_birth = MutableLiveData<Int>(0)
+    private val _sex_at_birth = MutableLiveData<Int>(0)//0
     val sex_at_birth : LiveData<Int> = _sex_at_birth
 
 
@@ -73,9 +73,10 @@ class UserProfileConfigViewModel(application: Application) : AndroidViewModel(ap
     }
 
 
+    fun recommendedCalories(): Int {
+        return mifflinStJeorEquation(_age.value!!, _weight.value!!.toDouble(), _height.value!!.toDouble(), _sex_at_birth.value!!, _activity.value!!) ?: 0
+    }
 
-
-    val calories = MifflinStJeorEquation(_age.value!!, _weight.value!!.toDouble(), _height.value!!.toDouble(), _sex_at_birth.value!!, _activity.value!!)
 
 
 

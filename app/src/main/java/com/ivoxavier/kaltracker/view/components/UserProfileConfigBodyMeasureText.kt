@@ -46,7 +46,8 @@ fun UserProfileConfigBodyMeasureText(type: String, unitLabel: String, hint: Stri
                 }
             },
             singleLine = true,
-            placeholder = { Text(text = hint) }
+            placeholder = { Text(text = hint) },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
     }
 }

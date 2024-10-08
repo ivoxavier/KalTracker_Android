@@ -17,19 +17,17 @@ package com.ivoxavier.kaltracker.service.repository.utils
 
 import kotlin.math.roundToInt
 
-fun MifflinStJeorEquation(age: Int, weight: Double, height: Double, sex: Int, activity: Int): Int{
-    val af: Double
-    val bmr: Double
+fun mifflinStJeorEquation(age: Int, weight: Double, height: Double, sex: Int, activity: Int): Int{
 
-    when (activity) {
-        0 -> af = 1.3
-        1 -> af = 1.5
-        2 -> af = 1.6
-        3 -> af = 1.9
-        else -> af = 1.3 // Valor padrão para atividade desconhecida
+    val af: Double = when (activity) {
+        0 -> 1.3
+        1 -> 1.5
+        2 -> 1.6
+        3 -> 1.9
+        else -> 1.3 // Valor padrão para atividade desconhecida
     }
 
-    bmr = if (sex == 0) {
+    val bmr: Double = if (sex == 0) {
         (10 * weight) + (6.25 * height) - (5 * age) + 5
     } else {
         (10 * weight) + (6.25 * height) - (5 * age) - 161
