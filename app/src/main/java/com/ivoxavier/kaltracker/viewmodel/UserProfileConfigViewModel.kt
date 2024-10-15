@@ -1,6 +1,8 @@
 package com.ivoxavier.kaltracker.viewmodel
 
 import android.app.Application
+import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,23 +11,23 @@ import com.ivoxavier.kaltracker.service.repository.utils.mifflinStJeorEquation
 class UserProfileConfigViewModel(application: Application) : AndroidViewModel(application) {
 
 
-    private val _age = MutableLiveData<Int>(15)//15
+    private val _age = MutableLiveData<Int>()//15
     val age : LiveData<Int> = _age
 
-    private val _plan = MutableLiveData<Int>(0)//0
+    private val _plan = MutableLiveData<Int>()//0
     val plan : LiveData<Int> = _plan
 
-    private val _activity = MutableLiveData<Int>(0)//0
+    private val _activity = MutableLiveData<Int>()//0
     val activity : LiveData<Int> = _activity
 
-    private val _height = MutableLiveData<Int>(150)//150
+    private val _height = MutableLiveData<Int>()//150
     val height : LiveData<Int> = _height
 
-    private val _weight = MutableLiveData<Int>(50)//50
+    private val _weight = MutableLiveData<Int>()//50
     val weight : LiveData<Int> = _weight
 
 
-    private val _sex_at_birth = MutableLiveData<Int>(0)//0
+    private val _sex_at_birth = MutableLiveData<Int>()//0
     val sex_at_birth : LiveData<Int> = _sex_at_birth
 
 
@@ -74,11 +76,21 @@ class UserProfileConfigViewModel(application: Application) : AndroidViewModel(ap
 
 
     fun recommendedCalories(): Int {
-        return mifflinStJeorEquation(_age.value!!, _weight.value!!.toDouble(), _height.value!!.toDouble(), _sex_at_birth.value!!, _activity.value!!) ?: 0
+        //This uses the !! bang operator that forces the wrapping object, but if a given moment some value is null we get NullPointerExecption error
+        //return mifflinStJeorEquation(_age.value!!, _weight.value!!.toDouble(), _height.value!!.toDouble(), _sex_at_birth.value!!, _activity.value!!) ?: 0
+
+        val age = _age.value
+        val weight = _weight.value
+        val height = _height.value
+        val sex = _sex_at_birth.value
+        val activity = _activity.value
+
+        return if (age != null && weight != null && height != null && sex != null && activity != null) {
+            mifflinStJeorEquation(age, weight.toDouble(), height.toDouble(), sex, activity) ?: 0
+        } else {
+            // Lidar com o caso em que algum valor é null, por exemplo, retornar 0 ou exibir uma mensagem de erro
+            0
+        }
+
     }
-
-
-
-
-
 }

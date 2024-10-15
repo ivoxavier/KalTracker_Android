@@ -28,9 +28,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.ivoxavier.kaltracker.viewmodel.UserProfileConfigViewModel
 
 @Composable
-fun UserProfileConfigAgePicker() {
-    val viewModel = viewModel<UserProfileConfigViewModel>()
-    val age by viewModel.age.observeAsState()
+fun UserProfileConfigAgePicker(viewModel:UserProfileConfigViewModel) {
+
+    val age by viewModel.age.observeAsState(initial = 0)
 
     //horizontal spacing between the buttons
     val spacing = 19.dp
@@ -39,9 +39,9 @@ fun UserProfileConfigAgePicker() {
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center) {
         Button(onClick = {
-            viewModel.ageIncrement()
+            viewModel.ageDecrement()
         } ) {
-            Text(text = "+",
+            Text(text = "-",
                 fontSize = 20.sp
             )
         }
@@ -53,9 +53,9 @@ fun UserProfileConfigAgePicker() {
             )
         Spacer(modifier = Modifier.padding(horizontal = spacing))
         Button(onClick = {
-                viewModel.ageDecrement()
+                viewModel.ageIncrement()
         } ) {
-            Text(text = "-",
+            Text(text = "+",
                 fontSize = 20.sp
             )
         }

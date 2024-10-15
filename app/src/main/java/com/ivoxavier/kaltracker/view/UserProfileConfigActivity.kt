@@ -3,6 +3,7 @@ package com.ivoxavier.kaltracker.view
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
@@ -15,15 +16,29 @@ import com.ivoxavier.kaltracker.view.fragments.ObjectiveFragment
 import com.ivoxavier.kaltracker.view.fragments.UserDetailsFragment
 import com.ivoxavier.kaltracker.viewmodel.MainViewModel
 import com.ivoxavier.kaltracker.viewmodel.UserProfileConfigViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.ViewModel
+
+
 
 class UserProfileConfigActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityUserProfileConfigBinding
+    //private lateinit var viewModel: UserProfileConfigViewModel
+
+    //make viewModel acessible by ViewPagerAdapter -> Fragments
+    //its not the best implementation,
+    //each fragment *should* have its own ViewModel
+    companion object {
+        lateinit var viewModel: UserProfileConfigViewModel
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // since we're using AppCompat here had to set a theme on values folder themes.xml
         // this app template was initially only jetpack compose
         setTheme(com.google.android.material.R.style.Theme_AppCompat)
+
+        viewModel = ViewModelProvider(this)[UserProfileConfigViewModel::class.java]
 
         super.onCreate(savedInstanceState)
         binding = ActivityUserProfileConfigBinding.inflate(layoutInflater)
@@ -41,20 +56,19 @@ class UserProfileConfigActivity : AppCompatActivity() {
             }
         }.attach()
     }
-}
 
-class ViewPagerAdapter(private val activity: AppCompatActivity) : FragmentStateAdapter(activity) {
+    class ViewPagerAdapter(private val activity: AppCompatActivity) :
+        FragmentStateAdapter(activity) {
 
-    private lateinit var viewModel: UserProfileConfigViewModel
+        override fun getItemCount(): Int = 3
 
-    override fun getItemCount(): Int = 3
-
-    override fun createFragment(position: Int): Fragment {
-        return when (position) {
-            0 -> ObjectiveFragment()
-            1 -> UserDetailsFragment()
-            2 -> BodyMeasureFragment()
-            else -> throw IllegalArgumentException("Invalid position")
+        override fun createFragment(position: Int): Fragment {
+            return when (position) {
+                0 -> ObjectiveFragment()
+                1 -> UserDetailsFragment()
+                2 -> BodyMeasureFragment()
+                else -> throw IllegalArgumentException("Invalid position")
+            }
         }
     }
 }

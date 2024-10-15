@@ -24,7 +24,7 @@ fun mifflinStJeorEquation(age: Int, weight: Double, height: Double, sex: Int, ac
         1 -> 1.5
         2 -> 1.6
         3 -> 1.9
-        else -> 1.3 // Valor padrão para atividade desconhecida
+        else -> 1.3 // for other scenarios
     }
 
     val bmr: Double = if (sex == 0) {

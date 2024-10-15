@@ -1,9 +1,11 @@
 package com.ivoxavier.kaltracker.view.fragments
 
+import android.app.Application
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -29,6 +31,7 @@ import com.ivoxavier.kaltracker.R
 import com.ivoxavier.kaltracker.view.components.UserProfileConfigBodyMeasureText
 import com.ivoxavier.kaltracker.view.components.UserProfileConfigHeaderText
 import com.ivoxavier.kaltracker.viewmodel.UserProfileConfigViewModel
+import com.ivoxavier.kaltracker.viewmodel.UserProfileConfigViewModelFactory
 
 class BodyMeasureFragment : Fragment() {
     override fun onCreateView(
@@ -38,10 +41,13 @@ class BodyMeasureFragment : Fragment() {
     ): View {
         return ComposeView(requireContext()).apply {
             setContent {
-                val viewModel = viewModel<UserProfileConfigViewModel>()
+                val viewModel = viewModel<UserProfileConfigViewModel>(viewModelStoreOwner = requireActivity())
                 var currentText by remember { mutableStateOf("") }
-                BodyMeasureList(textd = currentText){
+                BodyMeasureList(viewModel,textd = currentText){
                     currentText = viewModel.recommendedCalories().toString()
+                    if(currentText == "0"){
+                        Toast.makeText(context, "Error calculating calories", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }
@@ -49,15 +55,13 @@ class BodyMeasureFragment : Fragment() {
 }
 
 @Composable
-fun BodyMeasureList(textd: String, onCalculate: () -> Unit){
-    val viewModel = viewModel<UserProfileConfigViewModel>()
+fun BodyMeasureList(viewModel:UserProfileConfigViewModel,textd: String, onCalculate: () -> Unit){
     val context = LocalContext.current
-
     LazyColumn{
         items(1){
             UserProfileConfigHeaderText(headerText = context.getString(R.string.user_config_profile_header_body_measure_text))
-            UserProfileConfigBodyMeasureText(type = "HEIGHT", unitLabel = "cm", hint= context.getString(R.string.user_config_profile_placeholder_height_measure_text))
-            UserProfileConfigBodyMeasureText(type = "WEIGHT", unitLabel = "kg", hint= context.getString(R.string.user_config_profile_placeholder_weight_measure_text))
+            UserProfileConfigBodyMeasureText(viewModel,type = "HEIGHT", unitLabel = "cm", hint= context.getString(R.string.user_config_profile_placeholder_height_measure_text))
+            UserProfileConfigBodyMeasureText(viewModel,type = "WEIGHT", unitLabel = "kg", hint= context.getString(R.string.user_config_profile_placeholder_weight_measure_text))
             Row(modifier = Modifier.padding(16.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center) {

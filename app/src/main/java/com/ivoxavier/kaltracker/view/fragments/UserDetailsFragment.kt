@@ -23,12 +23,14 @@ import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.ivoxavier.kaltracker.R
+import com.ivoxavier.kaltracker.view.UserProfileConfigActivity
 import com.ivoxavier.kaltracker.view.components.UserProfileConfigAgePicker
 import com.ivoxavier.kaltracker.view.components.UserProfileConfigCard
 import com.ivoxavier.kaltracker.view.components.UserProfileConfigHeaderText
 import com.ivoxavier.kaltracker.viewmodel.UserProfileConfigViewModel
-
+import com.ivoxavier.kaltracker.viewmodel.UserProfileConfigViewModelFactory
 
 
 class UserDetailsFragment(): Fragment() {
@@ -39,7 +41,8 @@ class UserDetailsFragment(): Fragment() {
     ): View {
         return ComposeView(requireContext()).apply {
             setContent {
-                    UserDetailsList()
+                val viewModel = viewModel<UserProfileConfigViewModel>(viewModelStoreOwner = requireActivity())
+                    UserDetailsList(viewModel)
                 }
             }
         }
@@ -47,8 +50,7 @@ class UserDetailsFragment(): Fragment() {
 
 
 @Composable
-fun UserDetailsList(){
-    val viewModel = UserProfileConfigViewModel(Application())
+fun UserDetailsList(viewModel: UserProfileConfigViewModel){
     val context = LocalContext.current
     var selectedCardSexIndex by remember { mutableStateOf(-1) }
 
@@ -79,7 +81,7 @@ fun UserDetailsList(){
                 }
             )
             UserProfileConfigHeaderText(headerText=context.getString(R.string.user_config_profile_header_age_text))
-            UserProfileConfigAgePicker()
+            UserProfileConfigAgePicker(viewModel)
         }
     }
 }

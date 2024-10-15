@@ -32,7 +32,6 @@ class MainActivity : ComponentActivity() {
             startActivity(Intent(applicationContext, UserProfileConfigActivity::class.java))
             finish()
         }
-
     }
 }
 

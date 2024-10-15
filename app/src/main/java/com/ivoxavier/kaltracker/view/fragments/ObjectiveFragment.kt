@@ -11,13 +11,18 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalContext
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.ivoxavier.kaltracker.R
+import com.ivoxavier.kaltracker.view.UserProfileConfigActivity
 import com.ivoxavier.kaltracker.view.components.UserProfileConfigCard
 import com.ivoxavier.kaltracker.view.components.UserProfileConfigHeaderText
+import com.ivoxavier.kaltracker.view.components.UserProfileConfigPeriodDialog
 import com.ivoxavier.kaltracker.viewmodel.UserProfileConfigViewModel
+import com.ivoxavier.kaltracker.viewmodel.UserProfileConfigViewModelFactory
 
 class ObjectiveFragment() : Fragment() {
     override fun onCreateView(
@@ -27,7 +32,8 @@ class ObjectiveFragment() : Fragment() {
     ): View {
         return ComposeView(requireContext()).apply {
             setContent {
-                ObjectiveList()
+                val viewModel = viewModel<UserProfileConfigViewModel>(viewModelStoreOwner = requireActivity())
+                ObjectiveList(viewModel)
             }
         }
     }
@@ -35,11 +41,19 @@ class ObjectiveFragment() : Fragment() {
 
 //get the list of objectives
 @Composable
-fun ObjectiveList(){
-    val viewModel = UserProfileConfigViewModel(Application())
+fun ObjectiveList(viewModel: UserProfileConfigViewModel){
     val context = LocalContext.current
     var selectedCardPlanIndex by remember { mutableStateOf(-1) }
     var selectedCardActivityIndex by remember { mutableStateOf(-1) }
+    var showDialog by remember { mutableStateOf(false) }
+    var dialogTitle by remember { mutableStateOf("") }
+    var selectedOption by remember { mutableStateOf(0) } //
+
+
+    if(showDialog){
+        UserProfileConfigPeriodDialog()
+    }
+
 
     fun changeCardPlanSelection(index: Int) {
         selectedCardPlanIndex = if (selectedCardPlanIndex == index) -1 else index  // Toggle selection
@@ -61,6 +75,7 @@ fun ObjectiveList(){
                 onClick = {
                     changeCardPlanSelection(0)
                     viewModel.setPlan(selectedPlan = 1)
+                    showDialog = true
                 }
             )
             //UserProfileConfigCard plan
@@ -83,6 +98,7 @@ fun ObjectiveList(){
                 onClick = {
                     changeCardPlanSelection(2)
                     viewModel.setPlan(selectedPlan = 2)
+                    showDialog = true
                 }
             )
             UserProfileConfigHeaderText(headerText = context.getString(R.string.user_config_profile_header_activity_text))
@@ -93,7 +109,7 @@ fun ObjectiveList(){
                 image = R.drawable.cooking_stew_svgrepo_com,
                 label= context.getString(R.string.user_config_profile_card_very_light_activity),
                 onClick = {
-                    changeCardActivitySelection(3)
+                    changeCardActivitySelection (3)
                     viewModel.setActivity(selectedActivity = 0)
                 }
             )
