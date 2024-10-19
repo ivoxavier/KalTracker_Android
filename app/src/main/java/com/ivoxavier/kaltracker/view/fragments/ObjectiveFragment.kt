@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -45,13 +47,22 @@ fun ObjectiveList(viewModel: UserProfileConfigViewModel){
     val context = LocalContext.current
     var selectedCardPlanIndex by remember { mutableStateOf(-1) }
     var selectedCardActivityIndex by remember { mutableStateOf(-1) }
-    var showDialog by remember { mutableStateOf(false) }
-    var dialogTitle by remember { mutableStateOf("") }
-    var selectedOption by remember { mutableStateOf(0) } //
 
+    var showDialog by remember { mutableStateOf(false) }
+
+    val showPeriodDialog = viewModel.periodDialog.observeAsState()
+    LaunchedEffect(showPeriodDialog.value) {
+        showDialog = showPeriodDialog.value ?: false
+    }
 
     if(showDialog){
-        UserProfileConfigPeriodDialog()
+        if(selectedCardPlanIndex == 2){
+            UserProfileConfigPeriodDialog(context.getString(R.string.user_config_profile_dialog_gain_weight_text), viewModel)
+            showDialog = true
+        } else if(selectedCardPlanIndex == 0){
+            UserProfileConfigPeriodDialog(context.getString(R.string.user_config_profile_dialog_loose_weight_text), viewModel)
+            showDialog = true
+        }
     }
 
 
@@ -75,7 +86,7 @@ fun ObjectiveList(viewModel: UserProfileConfigViewModel){
                 onClick = {
                     changeCardPlanSelection(0)
                     viewModel.setPlan(selectedPlan = 1)
-                    showDialog = true
+                    viewModel.showDialog()
                 }
             )
             //UserProfileConfigCard plan
@@ -87,6 +98,7 @@ fun ObjectiveList(viewModel: UserProfileConfigViewModel){
                 onClick = {
                     changeCardPlanSelection(1)
                     viewModel.setPlan(selectedPlan = 0)
+                    viewModel.setPeriodPlan(0)
                 }
             )
             //UserProfileConfigCard plan
@@ -98,7 +110,7 @@ fun ObjectiveList(viewModel: UserProfileConfigViewModel){
                 onClick = {
                     changeCardPlanSelection(2)
                     viewModel.setPlan(selectedPlan = 2)
-                    showDialog = true
+                    viewModel.showDialog()
                 }
             )
             UserProfileConfigHeaderText(headerText = context.getString(R.string.user_config_profile_header_activity_text))
@@ -132,7 +144,8 @@ fun ObjectiveList(viewModel: UserProfileConfigViewModel){
                 label= context.getString(R.string.user_config_profile_card_moderate_activity),
                 onClick = {
                     changeCardActivitySelection(5)
-                    viewModel.setActivity(selectedActivity = 2)}
+                    viewModel.setActivity(selectedActivity = 2)
+                }
             )
             //UserProfileConfigCard activity
             UserProfileConfigCard(
@@ -142,7 +155,8 @@ fun ObjectiveList(viewModel: UserProfileConfigViewModel){
                 label= context.getString(R.string.user_config_profile_card_heavy_activity),
                 onClick = {
                     changeCardActivitySelection(6)
-                    viewModel.setActivity(selectedActivity = 3)}
+                    viewModel.setActivity(selectedActivity = 3)
+                }
             )
         }
     }

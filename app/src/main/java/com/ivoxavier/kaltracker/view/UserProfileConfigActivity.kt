@@ -2,6 +2,12 @@ package com.ivoxavier.kaltracker.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.SegmentedButtonDefaults.Icon
+import androidx.compose.runtime.Composable
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -57,6 +63,8 @@ class UserProfileConfigActivity : AppCompatActivity() {
         }.attach()
     }
 
+
+
     class ViewPagerAdapter(private val activity: AppCompatActivity) :
         FragmentStateAdapter(activity) {
 
@@ -72,3 +80,4 @@ class UserProfileConfigActivity : AppCompatActivity() {
         }
     }
 }
+

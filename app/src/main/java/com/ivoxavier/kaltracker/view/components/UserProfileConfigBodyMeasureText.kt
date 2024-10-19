@@ -26,6 +26,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.ivoxavier.kaltracker.R
 import com.ivoxavier.kaltracker.view.UserProfileConfigActivity
 import com.ivoxavier.kaltracker.viewmodel.UserProfileConfigViewModel
 import com.ivoxavier.kaltracker.viewmodel.UserProfileConfigViewModelFactory
@@ -50,7 +51,7 @@ fun UserProfileConfigBodyMeasureText(viewModel: UserProfileConfigViewModel,type:
                         viewModel.setHeight(newText.text.toInt())
                     }
                     else{
-                        Toast.makeText(context,"Enter a value", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context,context.getString(R.string.user_config_profile_body_measure_toast_text), Toast.LENGTH_SHORT).show()
                     }
 
                 }else{
@@ -58,7 +59,7 @@ fun UserProfileConfigBodyMeasureText(viewModel: UserProfileConfigViewModel,type:
                         viewModel.setWeight(newText.text.toInt())
                     }
                     else{
-                        Toast.makeText(context,"Enter a value",Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context,R.string.user_config_profile_body_measure_toast_text,Toast.LENGTH_SHORT).show()
                     }
                 }
             },
