@@ -15,7 +15,7 @@ class UserModel {
     var age: Int = 0
 
     @ColumnInfo(name=KalTrackerConstants.DB.USER.COLUMNS.SEX_AT_BIRTH)
-    var sex_at_birth: String = ""
+    var sex_at_birth: Int = 0
 
     @ColumnInfo(name=KalTrackerConstants.DB.USER.COLUMNS.WEIGHT)
     var weight: Double = 0.0
@@ -24,7 +24,7 @@ class UserModel {
     var height: Double = 0.0
 
     @ColumnInfo(name=KalTrackerConstants.DB.USER.COLUMNS.ACTIVITY)
-    var activity: String = ""
+    var activity: Int = 0
 
     @ColumnInfo(name=KalTrackerConstants.DB.USER.COLUMNS.REC_CAL)
     var rec_cal: Int = 0

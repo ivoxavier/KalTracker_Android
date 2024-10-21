@@ -9,10 +9,25 @@ import com.ivoxavier.kaltracker.service.repository.model.UserModel
 interface UserDAO {
 
     @Insert
-    fun save(list: List<UserModel>)
+    fun insert(user: UserModel): Long
 
     @Query("SELECT age FROM user")
     fun getAge() : Int
+
+    @Query("SELECT sex_at_birth FROM user")
+    fun getSex() : Int
+
+    @Query("SELECT weight FROM user")
+    fun getWeight() : Double
+
+    @Query("SELECT height FROM user")
+    fun getHeight() : Double
+
+    @Query("SELECT activity FROM user")
+    fun getActivity() : Int
+
+    @Query("SELECT rec_cal FROM user")
+    fun getRecCal() : Int
 
     @Query("DELETE FROM user")
     fun delete()

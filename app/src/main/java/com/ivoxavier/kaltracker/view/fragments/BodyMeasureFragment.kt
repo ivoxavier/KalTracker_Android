@@ -1,5 +1,6 @@
 package com.ivoxavier.kaltracker.view.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -38,6 +39,9 @@ import com.ivoxavier.kaltracker.view.components.UserProfileConfigBodyMeasureText
 import com.ivoxavier.kaltracker.view.components.UserProfileConfigHeaderText
 import com.ivoxavier.kaltracker.viewmodel.UserProfileConfigViewModel
 import androidx.compose.runtime.LaunchedEffect
+import androidx.core.content.ContextCompat.startActivity
+import com.ivoxavier.kaltracker.service.repository.model.UserModel
+import com.ivoxavier.kaltracker.view.HomeActivity
 import kotlinx.coroutines.delay
 
 
@@ -57,6 +61,7 @@ class BodyMeasureFragment : Fragment() {
                     //calories_text = viewModel.recommendedCalories().toString()
                     if(calories_text == "0"){
                         Toast.makeText(context, "Error calculating calories", Toast.LENGTH_SHORT).show()
+
                     }
                 }
             }
@@ -90,6 +95,7 @@ fun BodyMeasureList(viewModel:UserProfileConfigViewModel,textd: String, onCalcul
 
 @Composable
 fun ConfirmCalories(viewModel: UserProfileConfigViewModel){
+    val context = LocalContext.current
     var showDialog by remember { mutableStateOf(false) }
     var allSet by remember { mutableStateOf(viewModel.allFieldsFilled(viewModel._allSet)) }
 
@@ -127,7 +133,21 @@ fun ConfirmCalories(viewModel: UserProfileConfigViewModel){
                 }
             },
             confirmButton = {
-                Button(onClick = { showDialog = false }) {
+                Button(onClick = {
+                    showDialog = false
+                    val model = UserModel().apply {
+                        this.age = viewModel.age.value!!
+                        this.sex_at_birth = viewModel.sex_at_birth.value!!
+                        this.weight = viewModel.weight.value!!.toDouble()
+                        this.height = viewModel.height.value!!.toDouble()
+                        this.activity = viewModel.activity.value!!
+                        this.rec_cal = viewModel.recommendedCalories()
+                    }
+                    viewModel.save(model)
+                    context.startActivity(Intent(context, HomeActivity::class.java))
+                    //finish()
+
+                }) {
                     Text("Continue")
                 }
 

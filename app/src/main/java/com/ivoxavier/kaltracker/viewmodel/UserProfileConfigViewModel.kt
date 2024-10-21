@@ -8,13 +8,28 @@ import androidx.compose.runtime.mutableStateMapOf
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.ivoxavier.kaltracker.service.repository.UserRepository
+import com.ivoxavier.kaltracker.service.repository.model.UserModel
 import com.ivoxavier.kaltracker.service.repository.utils.mifflinStJeorEquation
 import com.ivoxavier.kaltracker.service.repository.utils.periodFour
 import com.ivoxavier.kaltracker.service.repository.utils.periodOne
 import com.ivoxavier.kaltracker.service.repository.utils.periodThree
 import com.ivoxavier.kaltracker.service.repository.utils.periodTwo
+import kotlin.math.abs
 
 class UserProfileConfigViewModel(application: Application) : AndroidViewModel(application) {
+
+    // region - Repository
+    private val repository = UserRepository(application)
+    //endregion
+
+    // region - LiveData
+
+    private val userModel = MutableLiveData<UserModel>()
+    val user: LiveData<UserModel> = userModel
+
+    private val _saveUser = MutableLiveData<Boolean>()
+    val saveUser: LiveData<Boolean> = _saveUser
 
     //use to hide OR show the periodObjetive dialog
     private val _periodDialog = MutableLiveData<Boolean>()
@@ -53,6 +68,7 @@ class UserProfileConfigViewModel(application: Application) : AndroidViewModel(ap
         "plan" to false
     )
 
+    //endregion
 
     //UserProfileCard types: Plan, Activity, Height, Weight, Sex. This helps in composable function
     val userProfileCardTypes = listOf(
@@ -78,10 +94,6 @@ class UserProfileConfigViewModel(application: Application) : AndroidViewModel(ap
 
     fun hideDialog(){
         _periodDialog.value = false
-    }
-
-    fun dialogState() : Boolean? {
-        return _periodDialog.value
     }
 
     fun ageIncrement() {
@@ -149,11 +161,15 @@ class UserProfileConfigViewModel(application: Application) : AndroidViewModel(ap
         //2 - gain weight
         when(plan){
             0 -> calories =  mifflinStJeorEquation(age, weight.toDouble(), height.toDouble(), sex, activity)
-            1 -> calories =  mifflinStJeorEquation(age, weight.toDouble(), height.toDouble(), sex, activity) - period
+            1 -> calories =  abs(mifflinStJeorEquation(age, weight.toDouble(), height.toDouble(), sex, activity) - period)
             2 -> calories =  mifflinStJeorEquation(age, weight.toDouble(), height.toDouble(), sex, activity) + period
         }
 
         return calories
+    }
+
+    fun save(user: UserModel){
+        repository.insert(user)
     }
 
 }

@@ -25,6 +25,8 @@
         </activity>
         <activity android:name="com.ivoxavier.kaltracker.view.UserProfileConfigActivity"
             android:theme="@style/Theme.KalTracker"/>
+        <activity android:name="com.ivoxavier.kaltracker.view.HomeActivity"
+            android:theme="@style/Theme.KalTracker"/>
     </application>
 
 </manifest>
