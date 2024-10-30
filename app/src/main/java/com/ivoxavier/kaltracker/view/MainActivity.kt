@@ -21,9 +21,6 @@ class MainActivity : ComponentActivity() {
         }else{
             startActivity(Intent(applicationContext, HomeActivity::class.java))
             finish()
-
-
-
         }
     }
 }

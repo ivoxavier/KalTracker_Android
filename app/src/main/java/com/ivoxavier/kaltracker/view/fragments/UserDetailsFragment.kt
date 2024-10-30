@@ -30,7 +30,6 @@ import com.ivoxavier.kaltracker.view.components.UserProfileConfigAgePicker
 import com.ivoxavier.kaltracker.view.components.UserProfileConfigCard
 import com.ivoxavier.kaltracker.view.components.UserProfileConfigHeaderText
 import com.ivoxavier.kaltracker.viewmodel.UserProfileConfigViewModel
-import com.ivoxavier.kaltracker.viewmodel.UserProfileConfigViewModelFactory
 
 
 class UserDetailsFragment(): Fragment() {

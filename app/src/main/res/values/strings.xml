@@ -20,6 +20,9 @@
     <string name="user_config_profile_dialog_period_two">1kg by week</string>
     <string name="user_config_profile_dialog_period_three">3kg by week</string>
     <string name="user_config_profile_dialog_period_four">4kg by week</string>
+    <string name="user_config_profile_dialog_recommended_calories">Recommended Calories</string>
+    <string name="user_config_profile_dialog_recommended_calories_go_back">Get Back</string>
+    <string name="user_config_profile_dialog_recommended_calories_continue">Continue</string>
     <string name="user_config_profile_card_very_light_activity">Very Light</string>
     <string name="user_config_profile_card_light_activity">Light</string>
     <string name="user_config_profile_card_moderate_activity">Moderate</string>

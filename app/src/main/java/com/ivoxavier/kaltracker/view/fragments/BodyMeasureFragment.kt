@@ -1,5 +1,6 @@
 package com.ivoxavier.kaltracker.view.fragments
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -45,8 +46,6 @@ import com.ivoxavier.kaltracker.view.HomeActivity
 import kotlinx.coroutines.delay
 
 
-var calories_text : String = ""
-
 class BodyMeasureFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,21 +55,14 @@ class BodyMeasureFragment : Fragment() {
         return ComposeView(requireContext()).apply {
             setContent {
                 val viewModel = viewModel<UserProfileConfigViewModel>(viewModelStoreOwner = requireActivity())
-                //var calories_text by remember { mutableStateOf("") }
-                BodyMeasureList(viewModel,textd = calories_text){
-                    //calories_text = viewModel.recommendedCalories().toString()
-                    if(calories_text == "0"){
-                        Toast.makeText(context, "Error calculating calories", Toast.LENGTH_SHORT).show()
-
-                    }
-                }
+                BodyMeasureList(viewModel){
             }
         }
     }
 }
 
 @Composable
-fun BodyMeasureList(viewModel:UserProfileConfigViewModel,textd: String, onCalculate: () -> Unit){
+fun BodyMeasureList(viewModel:UserProfileConfigViewModel, onCalculate: () -> Unit){
     val context = LocalContext.current
 
     LazyColumn{
@@ -81,12 +73,7 @@ fun BodyMeasureList(viewModel:UserProfileConfigViewModel,textd: String, onCalcul
             Row(modifier = Modifier.padding(16.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center) {
-                //Text(text = textd, color = androidx.compose.ui.graphics.Color.White, fontSize = 20.sp)
             }
-
-            /*Button(onClick = onCalculate) {
-                Text(text = "Calculate")
-            }*/
         }
     }
     ConfirmCalories(viewModel)
@@ -123,13 +110,13 @@ fun ConfirmCalories(viewModel: UserProfileConfigViewModel){
 
     if(showDialog){
         AlertDialog(
-            title ={Text(text ="Recommended Calories")} ,
+            title ={Text(text = context.getString(R.string.user_config_profile_dialog_recommended_calories))} ,
             text = {Text(text = viewModel.recommendedCalories().toString(),
                 fontSize = 20.sp)},
             onDismissRequest = { showDialog = false },
             dismissButton = {
                 Button(onClick = { showDialog = false }) {
-                    Text("Get Back")
+                    Text(context.getString(R.string.user_config_profile_dialog_recommended_calories_go_back))
                 }
             },
             confirmButton = {
@@ -144,14 +131,16 @@ fun ConfirmCalories(viewModel: UserProfileConfigViewModel){
                         this.rec_cal = viewModel.recommendedCalories()
                     }
                     viewModel.save(model)
+                    val appSettings = context.getSharedPreferences("appsettings", Context.MODE_PRIVATE)
+                    appSettings.edit().putBoolean("IS_CLEAN_INSTALL", false).apply()
                     context.startActivity(Intent(context, HomeActivity::class.java))
-                    //finish()
+
+                //finish() create a val in viewModel an finish() from ClassActivity?
 
                 }) {
-                    Text("Continue")
+                    Text(context.getString(R.string.user_config_profile_dialog_recommended_calories_continue))
                 }
-
             })
+        }
     }
-
 }

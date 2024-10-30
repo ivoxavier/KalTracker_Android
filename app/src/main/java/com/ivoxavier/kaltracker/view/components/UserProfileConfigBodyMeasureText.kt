@@ -29,7 +29,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.ivoxavier.kaltracker.R
 import com.ivoxavier.kaltracker.view.UserProfileConfigActivity
 import com.ivoxavier.kaltracker.viewmodel.UserProfileConfigViewModel
-import com.ivoxavier.kaltracker.viewmodel.UserProfileConfigViewModelFactory
 
 @Composable
 fun UserProfileConfigBodyMeasureText(viewModel: UserProfileConfigViewModel,type: String, unitLabel: String, hint: String){
