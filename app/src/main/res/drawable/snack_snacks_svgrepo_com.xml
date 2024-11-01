@@ -1,0 +1,25 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:height="45dp" android:viewportHeight="512" android:viewportWidth="512" android:width="45dp">
+      
+    <path android:fillColor="#47A7DD" android:pathData="M487.59,113.57H206.51l30.35,387.96h200.9c10.99,0 20.13,-8.45 20.99,-19.41L487.59,113.57z"/>
+      
+    <path android:fillColor="#3D98C1" android:pathData="M206.51,113.57l30.35,387.96l62.1,0l-25.39,-387.96z"/>
+      
+    <path android:fillColor="#DD852C" android:pathData="M282.39,359.01L165.61,318.1L48.83,359.01c-16.76,0 -30.35,13.59 -30.35,30.35l0,0c0,16.76 13.59,30.35 30.35,30.35l109.39,30.95l124.18,-30.95c16.76,0 30.35,-13.59 30.35,-30.35l0,0C312.75,372.6 299.16,359.01 282.39,359.01z"/>
+      
+    <path android:fillColor="#C16D21" android:pathData="M79.18,389.36L79.18,389.36c0,-16.76 13.59,-30.35 30.35,-30.35H48.83c-16.76,0 -30.35,13.59 -30.35,30.35l0,0c0,16.76 13.59,30.35 30.35,30.35h60.7C92.76,419.71 79.18,406.12 79.18,389.36z"/>
+      
+    <path android:fillColor="#F2F2F2" android:pathData="M495.24,51.46l-296.38,0l-16.76,63.34l329.9,0z"/>
+      
+    <path android:fillColor="#F2F2F2" android:pathData="M463.86,10.47l-233.62,0l-5.26,42.23l244.13,0z"/>
+      
+    <path android:fillColor="#E6E6E6" android:pathData="M273.81,10.47l-43.57,0l-5.26,42.23l-26.13,0l-16.76,63.34l90.39,0l8.82,-63.34l-7.5,-1.32"/>
+      
+    <path android:fillColor="#FFCA6C" android:pathData="M331.22,419.71H0v38.65c0,23.84 19.33,43.17 43.17,43.17h244.88c23.84,0 43.17,-19.33 43.17,-43.17V419.71z"/>
+      
+    <path android:fillColor="#E2AE5A" android:pathData="M59.38,458.36v-38.65H0v38.65c0,23.84 19.33,43.17 43.17,43.17h59.38C78.71,501.53 59.38,482.2 59.38,458.36z"/>
+      
+    <path android:fillColor="#FFCA6C" android:pathData="M0,359.01h331.22v-38.65c0,-23.84 -19.33,-43.17 -43.17,-43.17H43.17C19.33,277.2 0,296.52 0,320.37V359.01z"/>
+      
+    <path android:fillColor="#E2AE5A" android:pathData="M59.38,320.37v38.65H0v-38.65c0,-23.84 19.33,-43.17 43.17,-43.17h59.38C78.71,277.2 59.38,296.52 59.38,320.37z"/>
+    
+</vector>
