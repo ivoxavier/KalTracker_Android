@@ -12,11 +12,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.ivoxavier.kaltracker.R
 import com.ivoxavier.kaltracker.ui.theme.KalTrackerTheme
 import com.ivoxavier.kaltracker.view.components.CaloriesChart
+import com.ivoxavier.kaltracker.view.components.HomeIndicatorsProgress
 import com.ivoxavier.kaltracker.view.components.HomeIndicatorsTotal
 import com.ivoxavier.kaltracker.view.components.HomeIngestionCard
 import com.ivoxavier.kaltracker.view.components.HomeNotes
@@ -33,7 +35,8 @@ class HomeActivity: ComponentActivity() {
                         CaloriesChart(150,400)
                     }
                     Row(modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.Center) {
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically) {
                         HomeIndicatorsTotal(
                             title = resources.getString(R.string.global_string_foods),
                             total = 0
@@ -43,6 +46,23 @@ class HomeActivity: ComponentActivity() {
                         Spacer(modifier = Modifier.width(10.dp))
                         HomeIndicatorsTotal(
                             title = resources.getString(R.string.global_string_consumed),
+                            total = 0
+                        )
+                    }
+                    Row(modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceAround) {
+                        HomeIndicatorsProgress(
+                            title = resources.getString(R.string.global_string_fat),
+                            total = 0
+                        )
+                        Spacer(modifier = Modifier.width(11.dp))
+                        HomeIndicatorsProgress(
+                            title = resources.getString(R.string.global_string_carbo),
+                            total = 0
+                        )
+                        Spacer(modifier = Modifier.width(10.dp))
+                        HomeIndicatorsProgress(
+                            title = resources.getString(R.string.global_string_protein),
                             total = 0
                         )
                     }

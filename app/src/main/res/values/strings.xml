@@ -39,4 +39,7 @@
     <string name="global_string_exceeded">Exceeded</string>
     <string name="global_string_foods">Foods</string>
     <string name="global_string_consumed">Consumed</string>
+    <string name="global_string_fat">Fat</string>
+    <string name="global_string_carbo">Carbo</string>
+    <string name="global_string_protein">Protein</string>
 </resources>

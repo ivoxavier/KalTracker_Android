@@ -12,7 +12,8 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun HomeIndicatorsTotal(title:String, total: Int){
-    Column(modifier = Modifier.width(100.dp)) {
+    Column(modifier = Modifier.width(100.dp),
+        horizontalAlignment = Alignment.CenterHorizontally) {
         Text(modifier = Modifier.align(Alignment.CenterHorizontally),
             text = total.toString(),
             fontSize = 20.sp,
@@ -25,7 +26,8 @@ fun HomeIndicatorsTotal(title:String, total: Int){
 
 @Composable
 fun HomeIndicatorsProgress(title:String, total: Int){
-    Column(modifier = Modifier.width(100.dp)) {
+    Column(modifier = Modifier.width(100.dp),
+        horizontalAlignment = Alignment.CenterHorizontally) {
         Text(modifier = Modifier.align(Alignment.CenterHorizontally),
             text = total.toString(),
             fontSize = 20.sp,
