@@ -11,10 +11,17 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -31,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ivoxavier.kaltracker.R
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeIngestionCard(image: Int, title: String, mealCategory: Int,totalCalories: Int,onClick: () -> Unit) {
     val context = LocalContext.current
@@ -40,33 +48,59 @@ fun HomeIngestionCard(image: Int, title: String, mealCategory: Int,totalCalories
         .height(70.dp)
         .clickable { onClick() },
         colors = CardDefaults.cardColors(
-           containerColor =  Color.Gray
-       )
+            containerColor =  Color.Gray
+        )
         ,
         elevation = CardDefaults.cardElevation(
             defaultElevation = 10.dp
         )
     )//Closing Card Parameters
-        {
-        Row(modifier = Modifier.fillMaxWidth(),
+    {
+        Row(modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Absolute.Left) {
-            Image(painter = painterResource(id = image),
-                contentDescription = null,
-                modifier = Modifier.fillMaxHeight()
-            )
+            horizontalArrangement = Arrangement.SpaceBetween)
+        { // Changed to SpaceBetween
 
-            Spacer(modifier = Modifier.padding(horizontal = 8.dp)) // spacing between image and text
-            Column {
-                Text(
-                    text = title,
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold
+            Row(verticalAlignment = Alignment.CenterVertically) { // Added a Row for the image and text
+                Image(painter = painterResource(id = image),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .fillMaxHeight()
+
                 )
-                Text(
-                    text = totalCalories.toString() + " " + context.getString(R.string.global_string_calories).lowercase(),
-                    fontSize = 17.sp
-                )
+
+                Spacer(modifier = Modifier.padding(horizontal = 8.dp)) // spacing between image and text
+
+                Column {
+                    Text(
+                        text = title,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(
+                        text = totalCalories.toString() + " " + context.getString(R.string.global_string_calories).lowercase(),
+                        fontSize = 17.sp
+                    )
+                }
+                Row(){
+                    // Add Icon Button
+                    IconButton(
+                        onClick = { /*TODO*/ },
+                        modifier = Modifier
+                            .background(Color.LightGray, CircleShape)
+                            .size(32.dp)
+                        //.weight(1f) // Added weight to the image
+                    ) {
+                        Icon( // Use the Icon composable from Material icons
+                            imageVector = Icons.Filled.Add,
+                            contentDescription = "Add",
+                            tint = Color.Gray
+                        )
+                    }
+                }
+
             }
         }
     }

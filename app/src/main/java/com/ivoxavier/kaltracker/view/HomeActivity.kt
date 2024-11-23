@@ -53,17 +53,20 @@ class HomeActivity: ComponentActivity() {
                         horizontalArrangement = Arrangement.SpaceAround) {
                         HomeIndicatorsProgress(
                             title = resources.getString(R.string.global_string_fat),
-                            total = 0
+                            progress = 2.0f,
+                            max = 20
                         )
                         Spacer(modifier = Modifier.width(11.dp))
                         HomeIndicatorsProgress(
                             title = resources.getString(R.string.global_string_carbo),
-                            total = 0
+                            progress = 2.0f,
+                            max = 20
                         )
                         Spacer(modifier = Modifier.width(10.dp))
                         HomeIndicatorsProgress(
                             title = resources.getString(R.string.global_string_protein),
-                            total = 0
+                            progress = 2.0f,
+                            max = 20
                         )
                     }
                     HomeIngestionCard(
