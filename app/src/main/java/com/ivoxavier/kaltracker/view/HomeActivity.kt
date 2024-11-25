@@ -4,17 +4,22 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.ivoxavier.kaltracker.R
 import com.ivoxavier.kaltracker.ui.theme.KalTrackerTheme
 import com.ivoxavier.kaltracker.view.components.CaloriesChart
@@ -69,6 +74,20 @@ class HomeActivity: ComponentActivity() {
                             max = 20
                         )
                     }
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    Row(modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically){
+                        Image(painter = painterResource(id = R.drawable.ic_baseline_calendar_month_24),
+                            contentDescription = null)
+                        Text(
+                            text = "2024-11-24",
+                            fontSize = 16.sp
+                        )
+                    }
+
+
                     HomeIngestionCard(
                         image = R.drawable.breakfast_svgrepo_com,
                         title = resources.getString(R.string.home_ingestion_card_breakfast),

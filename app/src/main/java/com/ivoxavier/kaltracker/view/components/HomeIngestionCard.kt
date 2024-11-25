@@ -38,7 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ivoxavier.kaltracker.R
 
-@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
 fun HomeIngestionCard(image: Int, title: String, mealCategory: Int,totalCalories: Int,onClick: () -> Unit) {
     val context = LocalContext.current
@@ -68,12 +68,11 @@ fun HomeIngestionCard(image: Int, title: String, mealCategory: Int,totalCalories
                     contentDescription = null,
                     modifier = Modifier
                         .fillMaxHeight()
-
                 )
 
                 Spacer(modifier = Modifier.padding(horizontal = 8.dp)) // spacing between image and text
 
-                Column {
+                Column (modifier = Modifier.weight(1f)) {
                     Text(
                         text = title,
                         fontSize = 20.sp,
@@ -81,11 +80,11 @@ fun HomeIngestionCard(image: Int, title: String, mealCategory: Int,totalCalories
                     )
                     Text(
                         text = totalCalories.toString() + " " + context.getString(R.string.global_string_calories).lowercase(),
-                        fontSize = 17.sp
+                        fontSize = 16.sp
                     )
                 }
-                Row(){
-                    // Add Icon Button
+                Spacer(Modifier.weight(1f))
+
                     IconButton(
                         onClick = { /*TODO*/ },
                         modifier = Modifier
@@ -93,14 +92,12 @@ fun HomeIngestionCard(image: Int, title: String, mealCategory: Int,totalCalories
                             .size(32.dp)
                         //.weight(1f) // Added weight to the image
                     ) {
-                        Icon( // Use the Icon composable from Material icons
+                        Icon(
                             imageVector = Icons.Filled.Add,
                             contentDescription = "Add",
                             tint = Color.Gray
                         )
                     }
-                }
-
             }
         }
     }
