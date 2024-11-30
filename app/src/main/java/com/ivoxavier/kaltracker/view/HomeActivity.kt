@@ -8,6 +8,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
@@ -35,6 +36,12 @@ class HomeActivity: ComponentActivity() {
         setContent{
             LazyColumn{
                 items(1){
+                    Row(modifier = Modifier
+                        .fillMaxWidth()
+                        ){
+                        Image(painter = painterResource(id = R.drawable.ic_baseline_menu_24),
+                            contentDescription = null)
+                    }
                     Row(modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.Center) {
                         CaloriesChart(150,400)
