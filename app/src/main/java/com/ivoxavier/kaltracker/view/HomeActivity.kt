@@ -1,5 +1,6 @@
 package com.ivoxavier.kaltracker.view
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -42,8 +44,14 @@ class HomeActivity: ComponentActivity() {
                         modifier = Modifier
                         .fillMaxWidth()
                         ){
-                        Image(painter = painterResource(id = R.drawable.ic_baseline_menu_24),
-                            contentDescription = null)
+                        IconButton(onClick = {
+                                startActivity(Intent(applicationContext, MenuActivity::class.java))
+                        }) {
+
+                            Image(painter = painterResource(id = R.drawable.ic_baseline_menu_24),
+                                contentDescription = null)
+                        }
+
                     }
                     Row(modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.Center) {
