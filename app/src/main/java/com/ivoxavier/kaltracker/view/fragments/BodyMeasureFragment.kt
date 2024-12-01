@@ -1,5 +1,6 @@
 package com.ivoxavier.kaltracker.view.fragments
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -133,9 +134,10 @@ fun ConfirmCalories(viewModel: UserProfileConfigViewModel){
                     viewModel.save(model)
                     val appSettings = context.getSharedPreferences("appsettings", Context.MODE_PRIVATE)
                     appSettings.edit().putBoolean("IS_CLEAN_INSTALL", false).apply()
+                    appSettings.edit().putBoolean("IS_USER_CONFIGURED", true).apply()
                     context.startActivity(Intent(context, HomeActivity::class.java))
 
-                //finish() create a val in viewModel an finish() from ClassActivity?
+
 
                 }) {
                     Text(context.getString(R.string.user_config_profile_dialog_recommended_calories_continue))

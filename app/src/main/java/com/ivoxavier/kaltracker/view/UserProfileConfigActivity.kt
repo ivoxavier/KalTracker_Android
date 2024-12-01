@@ -24,7 +24,7 @@ import com.ivoxavier.kaltracker.viewmodel.MainViewModel
 import com.ivoxavier.kaltracker.viewmodel.UserProfileConfigViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.lifecycle.ViewModel
-
+import com.ivoxavier.kaltracker.service.repository.Settings
 
 
 class UserProfileConfigActivity : AppCompatActivity() {
@@ -44,6 +44,8 @@ class UserProfileConfigActivity : AppCompatActivity() {
         // this app template was initially only jetpack compose
         setTheme(com.google.android.material.R.style.Theme_AppCompat)
 
+
+
         viewModel = ViewModelProvider(this)[UserProfileConfigViewModel::class.java]
 
         super.onCreate(savedInstanceState)
@@ -61,9 +63,19 @@ class UserProfileConfigActivity : AppCompatActivity() {
                 2 -> tab.text = resources.getString(R.string.user_config_profile_body_measure_tab)
             }
         }.attach()
+
     }
 
+    override fun onResume() {
+        super.onResume()
+        val appSettings = Settings(this)
+        val isUserConfigured = appSettings.isUserConfigured()
 
+        //Verify if the user has its profile set on clean install, then finish this activity for no user interaction
+        if(isUserConfigured){
+            finish()
+        }
+    }
 
     class ViewPagerAdapter(private val activity: AppCompatActivity) :
         FragmentStateAdapter(activity) {

@@ -5,16 +5,27 @@ import android.content.SharedPreferences
 
 class Settings(context: Context) {
 
-    private val app_settings: SharedPreferences = context.getSharedPreferences("appsettings", Context.MODE_PRIVATE)
+    private val appSettings: SharedPreferences = context.getSharedPreferences("appsettings", Context.MODE_PRIVATE)
 
     private val IS_CLEAN_INSTALL = "is_clean_install"
 
+    private val IS_USER_CONFIGURED = "is_user_configured"
+
     fun isCleanInstall(): Boolean {
-        return if (app_settings.contains(IS_CLEAN_INSTALL)) {
+        return if (appSettings.contains(IS_CLEAN_INSTALL)) {
             false
         } else {
-            //esta linha daqui
-            ///app_settings.edit().putBoolean(IS_CLEAN_INSTALL, false).apply()
+
+            appSettings.edit().putBoolean(IS_CLEAN_INSTALL, false).apply()
+            true
+        }
+    }
+
+    fun isUserConfigured(): Boolean {
+        return if (appSettings.contains(IS_USER_CONFIGURED)) {
+            false
+        } else {
+            appSettings.edit().putBoolean(IS_USER_CONFIGURED, false).apply()
             true
         }
     }

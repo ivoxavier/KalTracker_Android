@@ -36,7 +36,10 @@ class HomeActivity: ComponentActivity() {
         setContent{
             LazyColumn{
                 items(1){
-                    Row(modifier = Modifier
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.End,
+                        modifier = Modifier
                         .fillMaxWidth()
                         ){
                         Image(painter = painterResource(id = R.drawable.ic_baseline_menu_24),
