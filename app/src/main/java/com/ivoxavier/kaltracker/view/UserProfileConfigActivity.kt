@@ -48,7 +48,8 @@ class UserProfileConfigActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
 
-        //catch value from intent(MenuActivity) and set it to viewModel
+        //catch value from intent(MenuActivity) and set it to viewModel, default value is false to avoid null pointer exception
+        //when a profile is being created from scracth
         val isUpdate = intent.getBooleanExtra("isUpdate", false)
         viewModel.isUpdate = isUpdate
 
