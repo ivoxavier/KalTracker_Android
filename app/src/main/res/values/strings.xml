@@ -42,4 +42,14 @@
     <string name="global_string_fat">Fat</string>
     <string name="global_string_carbo">Carbo</string>
     <string name="global_string_protein">Protein</string>
+    <string name="menu_item_your_profile">Your Profile</string>
+    <string name="menu_item_user">User</string>
+    <string name="menu_item_data_analysis">Data Analysis</string>
+    <string name="menu_item_settings">Settings</string>
+    <string name="menu_item_online_sources">Online Sources</string>
+    <string name="menu_item_storage">Storage</string>
+    <string name="menu_item_manage_data">Manage Data</string>
+    <string name="menu_item_export_data">Export Data</string>
+    <string name="menu_item_app_version">Version</string>
+    <string name="menu_item_not_available">Not Available</string>
 </resources>

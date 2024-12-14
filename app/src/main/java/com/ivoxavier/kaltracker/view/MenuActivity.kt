@@ -33,9 +33,14 @@ import com.ivoxavier.kaltracker.R
 import com.ivoxavier.kaltracker.view.components.ListItem
 import com.ivoxavier.kaltracker.view.components.ListItemDivider
 import com.ivoxavier.kaltracker.view.components.ListItemHeader
+import com.ivoxavier.kaltracker.view.components.ListItemVerticalSpacer
+import com.ivoxavier.kaltracker.viewmodel.MenuViewModel
 
 
 class MenuActivity:ComponentActivity() {
+
+    private lateinit var viewModel: MenuViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent{
@@ -65,56 +70,56 @@ class MenuActivity:ComponentActivity() {
                     Row(modifier = Modifier
                         .fillMaxWidth(),
                         horizontalArrangement = Arrangement.Center) {
-                        Text(text = "Version: 1.10.0")
+                        Text(text = resources.getString(R.string.menu_item_app_version) + " " + viewModel.getAppVersion() )
                     }
                 }
 
                 item{
-                Spacer(modifier = Modifier.height(16.dp))
+                    ListItemVerticalSpacer()
                 }
 
                 item {
-                    ListItemHeader("User")
-                    ListItem(text = "Your Profile", icon = ImageVector.vectorResource(id = R.drawable.ic_account_circle_24)) {
+                    ListItemHeader(resources.getString(R.string.menu_item_user))
+                    ListItem(text = resources.getString(R.string.menu_item_your_profile), icon = ImageVector.vectorResource(id = R.drawable.ic_account_circle_24)) {
                         // TODO: Handle click
                     }
                     ListItemDivider()
                 }
 
                 item {
-                    ListItem(text = "Data Analysis", icon = ImageVector.vectorResource(id = R.drawable.ic_sharp_add_chart_24)) {
+                    ListItem(text = resources.getString(R.string.menu_item_data_analysis), icon = ImageVector.vectorResource(id = R.drawable.ic_sharp_add_chart_24)) {
                         // TODO: Handle click
                     }
                     ListItemDivider()
                 }
 
                 item{
-                    Spacer(modifier = Modifier.height(16.dp))
+                    ListItemVerticalSpacer()
                 }
 
                 item {
-                    ListItemHeader("Settings")
-                    ListItem(text = "Settings", icon = ImageVector.vectorResource(id = R.drawable.ic_settings_24)) {
+                    ListItemHeader(resources.getString(R.string.menu_item_settings))
+                    ListItem(text = resources.getString(R.string.menu_item_settings), icon = ImageVector.vectorResource(id = R.drawable.ic_settings_24)) {
                         // TODO: Handle click
                     }
                     ListItemDivider()
-                    ListItem(text = "Online Sources", icon = ImageVector.vectorResource(id = R.drawable.ic_account_circle_24)) {
+                    ListItem(text = resources.getString(R.string.menu_item_online_sources), icon = ImageVector.vectorResource(id = R.drawable.ic_account_circle_24)) {
                         // TODO: Handle click
                     }
                     ListItemDivider()
                 }
                 
                 item{
-                    Spacer(modifier = Modifier.height(16.dp))
+                    ListItemVerticalSpacer()
                 }
 
                 item {
-                    ListItemHeader("Storage")
-                    ListItem(text = "Manage Data", icon = ImageVector.vectorResource(id = R.drawable.ic_account_circle_24)) {
+                    ListItemHeader(resources.getString(R.string.menu_item_storage))
+                    ListItem(text = resources.getString(R.string.menu_item_manage_data), icon = ImageVector.vectorResource(id = R.drawable.ic_account_circle_24)) {
                         // TODO: Handle click
                     }
                     ListItemDivider()
-                    ListItem(text = "Export Data", icon = ImageVector.vectorResource(id = R.drawable.ic_account_circle_24)) {
+                    ListItem(text = resources.getString(R.string.menu_item_export_data), icon = ImageVector.vectorResource(id = R.drawable.ic_account_circle_24)) {
                         // TODO: Handle click
                     }
                     ListItemDivider()
