@@ -1,5 +1,7 @@
 package com.ivoxavier.kaltracker.view
 
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -29,6 +31,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModelProvider
 import com.ivoxavier.kaltracker.R
 import com.ivoxavier.kaltracker.view.components.ListItem
 import com.ivoxavier.kaltracker.view.components.ListItemDivider
@@ -41,8 +44,14 @@ class MenuActivity:ComponentActivity() {
 
     private lateinit var viewModel: MenuViewModel
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        viewModel = ViewModelProvider(this)[MenuViewModel::class.java]
+
+
         setContent{
             LazyColumn(modifier = Modifier
                 .fillMaxSize()
@@ -81,7 +90,9 @@ class MenuActivity:ComponentActivity() {
                 item {
                     ListItemHeader(resources.getString(R.string.menu_item_user))
                     ListItem(text = resources.getString(R.string.menu_item_your_profile), icon = ImageVector.vectorResource(id = R.drawable.ic_account_circle_24)) {
-                        // TODO: Handle click
+                        val intent = Intent(applicationContext, UserProfileConfigActivity::class.java)
+                        intent.putExtra("isUpdateMode", true)
+                        startActivity(intent)
                     }
                     ListItemDivider()
                 }

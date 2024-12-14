@@ -44,11 +44,14 @@ class UserProfileConfigActivity : AppCompatActivity() {
         // this app template was initially only jetpack compose
         setTheme(com.google.android.material.R.style.Theme_AppCompat)
 
-
-
         viewModel = ViewModelProvider(this)[UserProfileConfigViewModel::class.java]
 
         super.onCreate(savedInstanceState)
+
+        //catch value from intent(MenuActivity) and set it to viewModel
+        val isUpdate = intent.getBooleanExtra("isUpdate", false)
+        viewModel.isUpdate = isUpdate
+
         binding = ActivityUserProfileConfigBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

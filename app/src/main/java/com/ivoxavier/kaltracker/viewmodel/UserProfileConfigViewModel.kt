@@ -58,6 +58,9 @@ class UserProfileConfigViewModel(application: Application) : AndroidViewModel(ap
     private val _period_plan = MutableLiveData<Int>()
     val period_plan : LiveData<Int> = _period_plan
 
+    //to control wheter the user is updating or creating a new profile
+    var isUpdate = false
+
     //to validate if all the fields are filled before calculating the calories
     val _allSet = mutableStateMapOf(
         "age" to false,

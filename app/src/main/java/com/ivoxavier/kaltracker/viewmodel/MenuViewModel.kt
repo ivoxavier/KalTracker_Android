@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import com.ivoxavier.kaltracker.R
 
 class MenuViewModel(application: Application): AndroidViewModel(application) {
+
     private val appVersion: String = try {
         val packageInfo = application.packageManager.getPackageInfo(application.packageName, 0)
         packageInfo.versionName
