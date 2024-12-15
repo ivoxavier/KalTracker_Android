@@ -23,4 +23,8 @@ class UserRepository(context: Context) {
         return kalTrackerDatabase.insert(user) > 0
     }
 
+    fun update(user: UserModel):Boolean{
+        return kalTrackerDatabase.update(user) > 0
+    }
+
 }

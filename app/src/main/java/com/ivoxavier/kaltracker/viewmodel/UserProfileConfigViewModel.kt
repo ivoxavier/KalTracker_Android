@@ -171,8 +171,15 @@ class UserProfileConfigViewModel(application: Application) : AndroidViewModel(ap
         return calories
     }
 
+    //saves user profile on cold start
     fun save(user: UserModel){
         repository.insert(user)
     }
+
+    //updates the user profile
+    fun update(user: UserModel){
+        repository.update(user)
+    }
+
 
 }

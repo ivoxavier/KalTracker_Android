@@ -131,13 +131,16 @@ fun ConfirmCalories(viewModel: UserProfileConfigViewModel){
                         this.activity = viewModel.activity.value!!
                         this.rec_cal = viewModel.recommendedCalories()
                     }
-                    viewModel.save(model)
-                    val appSettings = context.getSharedPreferences("appsettings", Context.MODE_PRIVATE)
-                    appSettings.edit().putBoolean("IS_CLEAN_INSTALL", false).apply()
-                    appSettings.edit().putBoolean("IS_USER_CONFIGURED", true).apply()
-                    context.startActivity(Intent(context, HomeActivity::class.java))
 
-
+                    if(viewModel.isUpdate){
+                        viewModel.update(model)
+                    } else{
+                        viewModel.save(model)
+                        val appSettings = context.getSharedPreferences("appsettings", Context.MODE_PRIVATE)
+                        appSettings.edit().putBoolean("IS_CLEAN_INSTALL", false).apply()
+                        appSettings.edit().putBoolean("IS_USER_CONFIGURED", true).apply()
+                        context.startActivity(Intent(context, HomeActivity::class.java))
+                    }
 
                 }) {
                     Text(context.getString(R.string.user_config_profile_dialog_recommended_calories_continue))
