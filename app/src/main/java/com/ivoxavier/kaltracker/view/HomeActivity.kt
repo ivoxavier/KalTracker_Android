@@ -2,6 +2,7 @@ package com.ivoxavier.kaltracker.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -17,12 +18,15 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModelProvider
 import com.ivoxavier.kaltracker.R
 import com.ivoxavier.kaltracker.ui.theme.KalTrackerTheme
 import com.ivoxavier.kaltracker.view.components.CaloriesChart
@@ -30,12 +34,23 @@ import com.ivoxavier.kaltracker.view.components.HomeIndicatorsProgress
 import com.ivoxavier.kaltracker.view.components.HomeIndicatorsTotal
 import com.ivoxavier.kaltracker.view.components.HomeIngestionCard
 import com.ivoxavier.kaltracker.view.components.HomeNotes
+import com.ivoxavier.kaltracker.viewmodel.HomeViewModel
 
 class HomeActivity: ComponentActivity() {
+
+    lateinit var viewModel: HomeViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
+        viewModel.setRecommendedCalories()
+
+
         super.onCreate(savedInstanceState)
         //enableEdgeToEdge()
         setContent{
+            val recommendedCalories by viewModel.recommendedCalories.observeAsState()
+
             LazyColumn{
                 items(1){
                     Row(
@@ -55,7 +70,7 @@ class HomeActivity: ComponentActivity() {
                     }
                     Row(modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.Center) {
-                        CaloriesChart(150,400)
+                        CaloriesChart(150,recommendedCalories?.toInt() ?: 0)
                     }
                     Row(modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.Center,
@@ -137,6 +152,11 @@ class HomeActivity: ComponentActivity() {
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.setRecommendedCalories()
     }
 }
 

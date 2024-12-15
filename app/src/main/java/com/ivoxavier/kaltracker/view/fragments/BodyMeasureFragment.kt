@@ -41,6 +41,7 @@ import com.ivoxavier.kaltracker.view.components.UserProfileConfigBodyMeasureText
 import com.ivoxavier.kaltracker.view.components.UserProfileConfigHeaderText
 import com.ivoxavier.kaltracker.viewmodel.UserProfileConfigViewModel
 import androidx.compose.runtime.LaunchedEffect
+import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import com.ivoxavier.kaltracker.service.repository.model.UserModel
 import com.ivoxavier.kaltracker.view.HomeActivity
@@ -86,6 +87,7 @@ fun ConfirmCalories(viewModel: UserProfileConfigViewModel){
     val context = LocalContext.current
     var showDialog by remember { mutableStateOf(false) }
     var allSet by remember { mutableStateOf(viewModel.allFieldsFilled(viewModel._allSet)) }
+    val appSettings = context.getSharedPreferences("appsettings", Context.MODE_PRIVATE)
 
     // check allSet every second
     LaunchedEffect(key1 = Unit) { // Trigger the effect once
@@ -136,11 +138,13 @@ fun ConfirmCalories(viewModel: UserProfileConfigViewModel){
                         viewModel.update(model)
                     } else{
                         viewModel.save(model)
-                        val appSettings = context.getSharedPreferences("appsettings", Context.MODE_PRIVATE)
                         appSettings.edit().putBoolean("IS_CLEAN_INSTALL", false).apply()
-                        appSettings.edit().putBoolean("IS_USER_CONFIGURED", true).apply()
                         context.startActivity(Intent(context, HomeActivity::class.java))
                     }
+
+                    //Close the activity UserProfileConfigActivity and prevents to be shown again by pressing back button
+                    val activity = context as Activity
+                    activity.finish()
 
                 }) {
                     Text(context.getString(R.string.user_config_profile_dialog_recommended_calories_continue))
@@ -149,3 +153,4 @@ fun ConfirmCalories(viewModel: UserProfileConfigViewModel){
         }
     }
 }
+

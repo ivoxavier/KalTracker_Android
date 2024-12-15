@@ -13,25 +13,29 @@ interface UserDAO {
     fun insert(user: UserModel): Long
 
     @Update
-    fun update(user: UserModel): Long
+    fun update(user: UserModel): Int
+
+
+    @Query("SELECT id FROM user")
+    fun getId() : Int?
 
     @Query("SELECT age FROM user")
-    fun getAge() : Int
+    fun getAge() : Int?
 
     @Query("SELECT sex_at_birth FROM user")
-    fun getSex() : Int
+    fun getSex() : Int?
 
     @Query("SELECT weight FROM user")
-    fun getWeight() : Double
+    fun getWeight() : Double?
 
     @Query("SELECT height FROM user")
-    fun getHeight() : Double
+    fun getHeight() : Double?
 
     @Query("SELECT activity FROM user")
-    fun getActivity() : Int
+    fun getActivity() : Int?
 
     @Query("SELECT rec_cal FROM user")
-    fun getRecCal() : Int
+    fun getRecCal() : Int?
 
     @Query("DELETE FROM user")
     fun delete()

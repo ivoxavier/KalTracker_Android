@@ -19,12 +19,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.LiveData
 import com.ivoxavier.kaltracker.R
 
 @Composable
-fun CaloriesChart(caloriesMissing: Int, maxCalorires: Int = 2000){
+fun CaloriesChart(caloriesMissing: Int, maxCalorires: Int){
     val context = LocalContext.current
-    val sweepAngle = (caloriesMissing.toFloat() / maxCalorires) * 360f
+    val sweepAngle = (caloriesMissing.toFloat() / maxCalorires.toFloat()) * 360f
     Box(modifier = Modifier
         .size(200.dp)
         .fillMaxSize()
@@ -52,7 +53,7 @@ fun CaloriesChart(caloriesMissing: Int, maxCalorires: Int = 2000){
         Column {
             Text(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
-                text = "23",
+                text = maxCalorires.toString(),
                 fontWeight = FontWeight.Bold,
                 fontSize = 22.sp
             )

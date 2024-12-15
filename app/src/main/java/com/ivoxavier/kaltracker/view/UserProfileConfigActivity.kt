@@ -50,7 +50,7 @@ class UserProfileConfigActivity : AppCompatActivity() {
 
         //catch value from intent(MenuActivity) and set it to viewModel, default value is false to avoid null pointer exception
         //when a profile is being created from scracth
-        val isUpdate = intent.getBooleanExtra("isUpdate", false)
+        val isUpdate = intent.getBooleanExtra("isUpdateMode", false)
         viewModel.isUpdate = isUpdate
 
         binding = ActivityUserProfileConfigBinding.inflate(layoutInflater)
@@ -70,16 +70,10 @@ class UserProfileConfigActivity : AppCompatActivity() {
 
     }
 
-    override fun onResume() {
+    /*override fun onResume() {
         super.onResume()
-        val appSettings = Settings(this)
-        val isUserConfigured = appSettings.isUserConfigured()
 
-        //Verify if the user has its profile set on clean install, then finish this activity for no user interaction
-        if(isUserConfigured){
-            finish()
-        }
-    }
+    }*/
 
     class ViewPagerAdapter(private val activity: AppCompatActivity) :
         FragmentStateAdapter(activity) {

@@ -1,6 +1,7 @@
 package com.ivoxavier.kaltracker.service.repository
 
 import android.content.Context
+import android.util.Log
 import com.ivoxavier.kaltracker.service.repository.local.KalTrackerDatabase
 import com.ivoxavier.kaltracker.service.repository.model.UserModel
 
@@ -24,7 +25,14 @@ class UserRepository(context: Context) {
     }
 
     fun update(user: UserModel):Boolean{
-        return kalTrackerDatabase.update(user) > 0
+        Log.d("UserRepository", "Updating user: $user") // Log the user object
+        val rowsUpdated = kalTrackerDatabase.update(user)
+        Log.d("UserRepository", "Rows updated: $rowsUpdated") // Log the result
+        return rowsUpdated > 0
+    }
+
+    fun getRecommendedCalories(): Int{
+        return kalTrackerDatabase.getRecCal() ?: 0
     }
 
 }
