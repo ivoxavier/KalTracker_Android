@@ -127,7 +127,8 @@ class MenuActivity:ComponentActivity() {
                 item {
                     ListItemHeader(resources.getString(R.string.menu_item_storage))
                     ListItem(text = resources.getString(R.string.menu_item_manage_data), icon = ImageVector.vectorResource(id = R.drawable.ic_account_circle_24)) {
-                        // TODO: Handle click
+                        val intent = Intent(applicationContext, ManageDataActivity::class.java)
+                        startActivity(intent)
                     }
                     ListItemDivider()
                     ListItem(text = resources.getString(R.string.menu_item_export_data), icon = ImageVector.vectorResource(id = R.drawable.ic_account_circle_24)) {
