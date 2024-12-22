@@ -44,6 +44,9 @@ class UserProfileConfigActivity : AppCompatActivity() {
         // this app template was initially only jetpack compose
         setTheme(com.google.android.material.R.style.Theme_AppCompat)
 
+        //hide actionbar
+        supportActionBar?.hide()
+
         viewModel = ViewModelProvider(this)[UserProfileConfigViewModel::class.java]
 
         super.onCreate(savedInstanceState)
