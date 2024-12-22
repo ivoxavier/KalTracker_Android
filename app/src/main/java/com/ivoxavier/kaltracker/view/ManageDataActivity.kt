@@ -34,19 +34,45 @@ class ManageDataActivity: ComponentActivity() {
                     TopTextHeader(text = resources.getString(R.string.menu_item_manage_data))
                 }
                 item {
-                    ListItemHeader("Ingestions")
-                    ListItemSwitch(text = "Delete Ingestions Automatically",icon = ImageVector.vectorResource(id = R.drawable.ic_account_circle_24))
+                    ListItemHeader(resources.getString(R.string.manage_data_list_header_ingestions))
+                    ListItemSwitch(text = resources.getString(R.string.manage_data_list_item_delete_ingestions_automatically),icon = ImageVector.vectorResource(id = R.drawable.ic_account_circle_24))
                 }
 
                 item {
-                    ListItem(text = "From a Specific date", icon = ImageVector.vectorResource(id = R.drawable.ic_settings_24)) {
+                    ListItem(text = resources.getString(R.string.manage_data_list_item_delete_ingestions_from_date), icon = ImageVector.vectorResource(id = R.drawable.ic_settings_24)) {
                         // TODO: Handle click
                     }
 
-                    ListItem(text = "Today Ingestions", icon = ImageVector.vectorResource(id = R.drawable.ic_settings_24)) {
+                    ListItem(text = resources.getString(R.string.manage_data_list_item_delete_only_today_ingestions), icon = ImageVector.vectorResource(id = R.drawable.ic_settings_24)) {
                         // TODO: Handle click
                     }
-                    ListItemButton(text = "Only Today Ingestion",icon = ImageVector.vectorResource(id = R.drawable.ic_account_circle_24),textButton = "Delete")
+                    ListItemButton(text = resources.getString(R.string.manage_data_list_item_delete_today_ingestions),icon = ImageVector.vectorResource(id = R.drawable.ic_account_circle_24),textButton = "Delete")
+                    ListItemDivider()
+                }
+
+                item {
+                    ListItemHeader(resources.getString(R.string.manage_data_list_header_user_foods_list))
+                    ListItem(text = resources.getString(R.string.manage_data_list_item_created_user_foods_list), icon = ImageVector.vectorResource(id = R.drawable.ic_settings_24)) {
+                        // TODO: Handle click
+                    }
+                    ListItemDivider()
+                }
+
+                item {
+                    ListItemHeader(resources.getString(R.string.manage_data_list_header_water))
+                    ListItemButton(text = resources.getString(R.string.manage_data_list_item_delete_all_water_records), icon = ImageVector.vectorResource(id = R.drawable.ic_settings_24), textButton = "Delete")
+                    ListItemDivider()
+                }
+
+                item {
+                    ListItemHeader(resources.getString(R.string.manage_data_list_header_notes))
+                    ListItemButton(text = resources.getString(R.string.manage_data_list_item_delete_all_notes_records), icon = ImageVector.vectorResource(id = R.drawable.ic_settings_24), textButton = "Delete")
+                    ListItemDivider()
+                }
+
+                item {
+                    ListItemHeader(resources.getString(R.string.manage_data_list_header_weight_tracker))
+                    ListItemButton(text = resources.getString(R.string.manage_data_list_item_delete_all_weight_records), icon = ImageVector.vectorResource(id = R.drawable.ic_settings_24), textButton = "Delete")
                     ListItemDivider()
                 }
 

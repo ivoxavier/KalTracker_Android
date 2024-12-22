@@ -31,6 +31,8 @@
             android:theme="@style/Theme.KalTracker"/>
         <activity android:name="com.ivoxavier.kaltracker.view.ManageDataActivity"
             android:theme="@style/Theme.KalTracker"/>
+        <activity android:name="com.ivoxavier.kaltracker.view.QuickListFoodsActivity"
+            android:theme="@style/Theme.KalTracker"/>
     </application>
 
 </manifest>

@@ -9,7 +9,7 @@ import com.ivoxavier.kaltracker.service.repository.model.IngestionModel
 interface IngestionDAO {
 
     @Insert
-    fun save(list: List<IngestionModel>)
+    fun insert(ingestion: IngestionModel): Long
 
     @Query("SELECT * FROM ingestions")
     fun getAll(): List<IngestionModel>

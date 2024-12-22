@@ -122,32 +122,48 @@ class HomeActivity: ComponentActivity() {
 
 
                     HomeIngestionCard(
+                        //mealCategory = 0,
                         image = R.drawable.breakfast_svgrepo_com,
                         title = resources.getString(R.string.home_ingestion_card_breakfast),
-                        mealCategory = 0,
                         totalCalories = 0,
-                        onClick = {}
+                        onClick = {
+                            val intent = Intent(applicationContext, QuickListFoodsActivity::class.java)
+                            intent.putExtra("mealCategory", 0)
+                            startActivity(intent)
+                        }
                     )
                     HomeIngestionCard(
+                        //mealCategory = 1
                         image = R.drawable.fried_chicken_meal_svgrepo_com,
                         title = resources.getString(R.string.home_ingestion_card_lunch),
-                        mealCategory = 1,
                         totalCalories = 0,
-                        onClick = {}
+                        onClick = {
+                            val intent = Intent(applicationContext, QuickListFoodsActivity::class.java)
+                            intent.putExtra("mealCategory", 1)
+                            startActivity(intent)
+                        }
                     )
                     HomeIngestionCard(
+                        //mealCategory = 2
                         image = R.drawable.dinner_svgrepo_com,
                         title = resources.getString(R.string.home_ingestion_card_dinner),
-                        mealCategory = 2,
                         totalCalories = 0,
-                        onClick = {}
+                        onClick = {
+                            val intent = Intent(applicationContext, QuickListFoodsActivity::class.java)
+                            intent.putExtra("mealCategory", 2)
+                            startActivity(intent)
+                        }
                     )
                     HomeIngestionCard(
+                        //mealCategory = 3
                         image = R.drawable.snack_snacks_svgrepo_com,
                         title = resources.getString(R.string.home_ingestion_card_snacks),
-                        mealCategory = 3,
                         totalCalories = 0,
-                        onClick = {}
+                        onClick = {
+                            val intent = Intent(applicationContext, QuickListFoodsActivity::class.java)
+                            intent.putExtra("mealCategory", 3)
+                            startActivity(intent)
+                        }
                     )
                 }
             }

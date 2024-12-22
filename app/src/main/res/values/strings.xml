@@ -52,4 +52,17 @@
     <string name="menu_item_export_data">Export Data</string>
     <string name="menu_item_app_version">Version</string>
     <string name="menu_item_not_available">Not Available</string>
+    <string name="manage_data_list_header_ingestions">Ingestions</string>
+    <string name="manage_data_list_item_delete_ingestions_automatically">Delete Ingestions Automatically</string>
+    <string name="manage_data_list_item_delete_ingestions_from_date">Delete From a Specific Date</string>
+    <string name="manage_data_list_item_delete_today_ingestions">Delete Today Ingestions</string>
+    <string name="manage_data_list_item_delete_only_today_ingestions">Delete Only Today Ingestions</string>
+    <string name="manage_data_list_header_user_foods_list">User Foods List</string>
+    <string name="manage_data_list_item_created_user_foods_list">Created User Foods List</string>
+    <string name="manage_data_list_header_water">Water</string>
+    <string name="manage_data_list_item_delete_all_water_records">All Water Records</string>
+    <string name="manage_data_list_header_notes">Notes</string>
+    <string name="manage_data_list_item_delete_all_notes_records">All Notes Records</string>
+    <string name="manage_data_list_header_weight_tracker">Weight Tracker</string>
+    <string name="manage_data_list_item_delete_all_weight_records">Delete All Weight Tracker Records</string>
 </resources>

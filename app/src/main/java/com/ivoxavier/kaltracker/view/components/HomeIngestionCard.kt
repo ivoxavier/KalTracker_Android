@@ -40,13 +40,12 @@ import com.ivoxavier.kaltracker.R
 
 
 @Composable
-fun HomeIngestionCard(image: Int, title: String, mealCategory: Int,totalCalories: Int,onClick: () -> Unit) {
+fun HomeIngestionCard(image: Int, title: String, totalCalories: Int,onClick: () -> Unit) {
     val context = LocalContext.current
     Card(modifier = Modifier
         .padding(19.dp)
         .fillMaxWidth()
-        .height(70.dp)
-        .clickable { onClick() },
+        .height(70.dp),
         colors = CardDefaults.cardColors(
             containerColor =  Color.Gray
         )
@@ -61,7 +60,7 @@ fun HomeIngestionCard(image: Int, title: String, mealCategory: Int,totalCalories
             .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween)
-        { // Changed to SpaceBetween
+        {
 
             Row(verticalAlignment = Alignment.CenterVertically) { // Added a Row for the image and text
                 Image(painter = painterResource(id = image),
@@ -86,7 +85,7 @@ fun HomeIngestionCard(image: Int, title: String, mealCategory: Int,totalCalories
                 Spacer(Modifier.weight(1f))
 
                     IconButton(
-                        onClick = { /*TODO*/ },
+                        onClick = { onClick() },
                         modifier = Modifier
                             .background(Color.LightGray, CircleShape)
                             .size(32.dp)
