@@ -36,8 +36,8 @@ class QuickAdditionActivity: AppCompatActivity() {
         viewPager.adapter = ViewPagerAdapter(this)
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             when (position) {
-                0 -> tab.text = "ProductDetalos"
-                1 -> tab.text = "ProdcutMarctos"
+                0 -> tab.text = resources.getString(R.string.quick_addition_product_name_calories)
+                1 -> tab.text = resources.getString(R.string.quick_addition_product_macros)
             }
         }.attach()
     }
@@ -45,7 +45,7 @@ class QuickAdditionActivity: AppCompatActivity() {
     class ViewPagerAdapter(private val activity: AppCompatActivity) :
         FragmentStateAdapter(activity) {
 
-        override fun getItemCount(): Int = 3
+        override fun getItemCount(): Int = 2
 
         override fun createFragment(position: Int): Fragment {
             return when (position) {
