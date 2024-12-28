@@ -3,19 +3,29 @@ package com.ivoxavier.kaltracker.view
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.ivoxavier.kaltracker.R
 import com.ivoxavier.kaltracker.databinding.ActivityQuickAdditionBinding
-import com.ivoxavier.kaltracker.view.UserProfileConfigActivity.ViewPagerAdapter
 import com.ivoxavier.kaltracker.view.fragments.ProductMacrosFragment
 import com.ivoxavier.kaltracker.view.fragments.ProductNameCaloriesFragment
+import com.ivoxavier.kaltracker.viewmodel.QuickAdditionViewModel
 
 class QuickAdditionActivity: AppCompatActivity() {
 
     private lateinit var binding: ActivityQuickAdditionBinding
+
+
+    //make viewModel acessible by ViewPagerAdapter -> Fragments
+    //its not the best implementation,
+    //each fragment *should* have its own ViewModel
+    companion object {
+        lateinit var viewModel: QuickAdditionViewModel
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         // since we're using AppCompat here had to set a theme on values folder themes.xml
         // this app template was initially only jetpack compose
@@ -23,6 +33,8 @@ class QuickAdditionActivity: AppCompatActivity() {
 
         //hide actionbar
         supportActionBar?.hide()
+
+        viewModel = ViewModelProvider(this)[QuickAdditionViewModel::class.java]
 
         super.onCreate(savedInstanceState)
 

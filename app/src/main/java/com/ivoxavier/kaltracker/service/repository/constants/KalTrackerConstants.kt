@@ -82,6 +82,19 @@ class KalTrackerConstants private constructor(){
         }
         // endregion
     }
+    //endregion
 
+    //region QuickAdditionActivity
+    object QUICK_ADDITION{
+        const val PRODUCT_NAME = "product_name"
+        const val PRODUCT_CALORIES = "product_calories"
+        object NUTRISCORE{
+            const val A = "a"
+            const val B = "b"
+            const val C = "c"
+            const val D = "d"
+            const val E = "e"
+        }
+    }
     //endregion
 }

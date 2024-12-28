@@ -67,5 +67,7 @@
     <string name="manage_data_list_item_delete_all_weight_records">Delete All Weight Tracker Records</string>
     <string name="quick_addition_product_name_calories">Product Details</string>
     <string name="quick_addition_product_macros">Product Macros</string>
+    <string name="quick_addition_product_name">Product Name</string>
+    <string name="quick_addition_product_calories">Product Calories</string>
 
 </resources>

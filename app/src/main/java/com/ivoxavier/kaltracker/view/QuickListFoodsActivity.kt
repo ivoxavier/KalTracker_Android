@@ -14,19 +14,24 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.lifecycle.ViewModelProvider
+import com.ivoxavier.kaltracker.viewmodel.QuickAdditionViewModel
 import com.ivoxavier.kaltracker.viewmodel.QuickListFoodsViewModel
 
 class QuickListFoodsActivity: ComponentActivity() {
 
+    //we need both viewModels since this activity fetch foods from DB and has a button to open QuickAdditionActivity
     lateinit var viewModel: QuickListFoodsViewModel
+    lateinit var viewModel2: QuickAdditionViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         viewModel = ViewModelProvider(this)[QuickListFoodsViewModel::class.java]
+        viewModel2 = ViewModelProvider(this)[QuickAdditionViewModel::class.java]
 
         val mealCategory = intent.getIntExtra("mealCategory", -1)
         viewModel.mealCategory = mealCategory
+        viewModel2.mealCategory = mealCategory
 
         setContent {
             Scaffold(
