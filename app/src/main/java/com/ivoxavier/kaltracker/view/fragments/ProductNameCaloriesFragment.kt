@@ -13,11 +13,16 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -28,11 +33,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.ivoxavier.kaltracker.R
@@ -50,15 +58,43 @@ class ProductNameCaloriesFragment: Fragment() {
         return ComposeView(requireContext()).apply{
             setContent{
                 val viewModel = viewModel<QuickAdditionViewModel>(viewModelStoreOwner = requireActivity())
-                LazyColumn{
-                    item{
-                        QuickAdditionText(viewModel,resources.getString(R.string.quick_addition_product_name),KalTrackerConstants.QUICK_ADDITION.PRODUCT_NAME)
-                        QuickAdditionText(viewModel,resources.getString(R.string.quick_addition_product_calories),KalTrackerConstants.QUICK_ADDITION.PRODUCT_CALORIES)
-                        ListItemVerticalSpacer()
-                        NutriscoreList()
+
+                var productName by remember { mutableStateOf(TextFieldValue("")) }
+                var productCalories by remember { mutableStateOf(TextFieldValue("")) }
+                val focusManager = LocalFocusManager.current
+                // Scaffold para controlar o comportamento do teclado
+                Scaffold { paddingValues ->
+                    LazyColumn(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(paddingValues) // Aplica o padding do Scaffold
+                            .padding(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        item {
+                            Text(
+                                text = stringResource(id = R.string.quick_addition_product_name_calories),
+                                fontSize = 20.sp,
+                                fontWeight = FontWeight.Bold,
+                                modifier = Modifier.fillMaxWidth(),
+                                textAlign = TextAlign.Center
+                            )
+
+                            Spacer(modifier = Modifier.height(16.dp))
+
+                            QuickAdditionText(viewModel,resources.getString(R.string.quick_addition_product_name),KalTrackerConstants.QUICK_ADDITION.PRODUCT_NAME)
+
+                            // Campo "Product Calories"
+                            QuickAdditionText(viewModel,resources.getString(R.string.quick_addition_product_calories),KalTrackerConstants.QUICK_ADDITION.PRODUCT_CALORIES)
+
+                            Spacer(modifier = Modifier.height(16.dp))
+
+                            NutriscoreList()
+
+                            Spacer(modifier = Modifier.height(16.dp))
+                        }
                     }
                 }
-
             }
         }
     }
@@ -85,14 +121,18 @@ fun NutriscoreList(){
 
 
     Column(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
         Box {
             Row(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.clickable { isListExpanded.value = true }
+                modifier = Modifier
+                    .clickable { isListExpanded.value = true }
+                    .padding(8.dp)
             ) {
                 Text(text = stringResource(id = R.string.quick_addition_nutriscore))
                 Image(
@@ -109,20 +149,19 @@ fun NutriscoreList(){
                         text = {
                             Row(verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.Center,) {
-                                // Nutriscore Card
                                 Box(
                                     modifier = Modifier
-                                        .size(24.dp) // Adjust size as needed
-                                        .background(getNutriscoreColor(nutriscore)) // Get color based on nutriscore value
+                                        .size(24.dp) //Adjust size as needed
+                                        .background(getNutriscoreColor(nutriscore))
                                 ) {
                                     Text(
                                         text = nutriscore,
-                                        color = Color.White, // Or any suitable contrasting color
+                                        color = Color.White,
                                         textAlign = TextAlign.Center,
                                         modifier = Modifier.align(Alignment.Center)
                                     )
                                 }
-                                Spacer(modifier = Modifier.width(8.dp)) // Add some space between card and text
+                                Spacer(modifier = Modifier.width(8.dp))
                                 //Text(text = nutriscore)
                             }
                         },
@@ -141,11 +180,11 @@ fun NutriscoreList(){
 @Composable
 fun getNutriscoreColor(nutriscore: String): Color {
     return when (nutriscore) {
-        KalTrackerConstants.QUICK_ADDITION.NUTRISCORE.A -> Color(0xFF007E33) // Green
-        KalTrackerConstants.QUICK_ADDITION.NUTRISCORE.B -> Color(0xFF7CB342) // Light Green
-        KalTrackerConstants.QUICK_ADDITION.NUTRISCORE.C -> Color(0xFFFFF176) // Yellow
-        KalTrackerConstants.QUICK_ADDITION.NUTRISCORE.D -> Color(0xFFFFA726) // Orange
-        KalTrackerConstants.QUICK_ADDITION.NUTRISCORE.E -> Color(0xFFF44336) // Red
-        else -> Color.LightGray // Default color if no match
+        KalTrackerConstants.QUICK_ADDITION.NUTRISCORE.A -> KalTrackerConstants.QUICK_ADDITION.NUTRISCORE.COLOR.A
+        KalTrackerConstants.QUICK_ADDITION.NUTRISCORE.B -> KalTrackerConstants.QUICK_ADDITION.NUTRISCORE.COLOR.B
+        KalTrackerConstants.QUICK_ADDITION.NUTRISCORE.C -> KalTrackerConstants.QUICK_ADDITION.NUTRISCORE.COLOR.C
+        KalTrackerConstants.QUICK_ADDITION.NUTRISCORE.D -> KalTrackerConstants.QUICK_ADDITION.NUTRISCORE.COLOR.D
+        KalTrackerConstants.QUICK_ADDITION.NUTRISCORE.E -> KalTrackerConstants.QUICK_ADDITION.NUTRISCORE.COLOR.E
+        else -> Color.LightGray
     }
 }

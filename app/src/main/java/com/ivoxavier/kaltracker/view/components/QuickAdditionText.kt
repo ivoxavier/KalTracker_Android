@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -20,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -62,7 +64,16 @@ fun QuickAdditionText(viewModel: QuickAdditionViewModel, label:String, input:Str
             label = {Text(modifier = Modifier.padding(0.dp),
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Bold,
-                text= label)}
+                text= label)},
+            keyboardOptions = KeyboardOptions(
+                keyboardType = if (input == KalTrackerConstants.QUICK_ADDITION.PRODUCT_NAME){
+                    KeyboardType.Text
+                }else {
+                    //KalTrackerConstants.QUICK_ADDITION.PRODUCT_CALORIES
+                    KeyboardType.Number
+                }
+            ),
+            singleLine = true
         )
     }
 }

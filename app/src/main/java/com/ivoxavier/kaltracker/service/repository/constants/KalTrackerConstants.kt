@@ -1,5 +1,7 @@
 package com.ivoxavier.kaltracker.service.repository.constants
 
+import androidx.compose.ui.graphics.Color
+
 class KalTrackerConstants private constructor(){
     //region Database
     object DB{
@@ -94,6 +96,14 @@ class KalTrackerConstants private constructor(){
             const val C = "c"
             const val D = "d"
             const val E = "e"
+
+            object COLOR{
+                val A = Color(0xFF007E33)
+                val B = Color(0xFF7CB342)
+                val C = Color(0xFFFFF176)
+                val D = Color(0xFFFFA726)
+                val E = Color(0xFFF44336)
+            }
         }
     }
     //endregion
