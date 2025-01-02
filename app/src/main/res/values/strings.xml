@@ -70,5 +70,8 @@
     <string name="quick_addition_product_name">Product Name</string>
     <string name="quick_addition_product_calories">Product Calories</string>
     <string name="quick_addition_nutriscore">Nutriscore</string>
+    <string name="quick_addition_macro_fat">Fat</string>
+    <string name="quick_addition_macro_carbo">Carbo</string>
+    <string name="quick_addition_macro_protein">Protein</string>
 
 </resources>

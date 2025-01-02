@@ -1,5 +1,6 @@
 package com.ivoxavier.kaltracker.view.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,9 +19,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.FabPosition
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -45,6 +51,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.ivoxavier.kaltracker.R
 import com.ivoxavier.kaltracker.service.repository.constants.KalTrackerConstants
+import com.ivoxavier.kaltracker.service.repository.model.IngestionModel
+import com.ivoxavier.kaltracker.view.QuickAdditionActivity
 import com.ivoxavier.kaltracker.view.components.ListItemVerticalSpacer
 import com.ivoxavier.kaltracker.view.components.QuickAdditionText
 import com.ivoxavier.kaltracker.viewmodel.QuickAdditionViewModel
@@ -62,12 +70,32 @@ class ProductNameCaloriesFragment: Fragment() {
                 var productName by remember { mutableStateOf(TextFieldValue("")) }
                 var productCalories by remember { mutableStateOf(TextFieldValue("")) }
                 val focusManager = LocalFocusManager.current
-                // Scaffold para controlar o comportamento do teclado
-                Scaffold { paddingValues ->
+
+                Scaffold(
+                    floatingActionButton = {
+                        FloatingActionButton(onClick = {
+                            val model = IngestionModel().apply {
+                                this.name = viewModel.productName.value!!
+                                this.cal = viewModel.calories.value!!.toInt()
+                                this.nutriscore = viewModel.nutriscore.value!!
+                                this.fat = viewModel.fat_100g.value!!.toDouble()
+                                this.carbo = viewModel.carbo_100g.value!!.toDouble()
+                                this.protein = viewModel.protein_100g.value!!.toDouble()
+                                this.meal = viewModel.mealCategory
+                            }
+
+                            viewModel.save(model)
+
+                        }) {
+                            Icon(Icons.Filled.Add, contentDescription = "Add")
+                        }
+                    },
+                    floatingActionButtonPosition = FabPosition.End
+                ) { paddingValues ->
                     LazyColumn(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(paddingValues) // Aplica o padding do Scaffold
+                            .padding(paddingValues)
                             .padding(16.dp),
                         verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
@@ -84,7 +112,6 @@ class ProductNameCaloriesFragment: Fragment() {
 
                             QuickAdditionText(viewModel,resources.getString(R.string.quick_addition_product_name),KalTrackerConstants.QUICK_ADDITION.PRODUCT_NAME)
 
-                            // Campo "Product Calories"
                             QuickAdditionText(viewModel,resources.getString(R.string.quick_addition_product_calories),KalTrackerConstants.QUICK_ADDITION.PRODUCT_CALORIES)
 
                             Spacer(modifier = Modifier.height(16.dp))
@@ -151,7 +178,7 @@ fun NutriscoreList(){
                                 horizontalArrangement = Arrangement.Center,) {
                                 Box(
                                     modifier = Modifier
-                                        .size(24.dp) //Adjust size as needed
+                                        .size(24.dp)
                                         .background(getNutriscoreColor(nutriscore))
                                 ) {
                                     Text(

@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.ivoxavier.kaltracker.service.repository.IngestionRepository
+import com.ivoxavier.kaltracker.service.repository.model.IngestionModel
 
 class QuickAdditionViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = IngestionRepository(application)
@@ -21,6 +22,18 @@ class QuickAdditionViewModel(application: Application) : AndroidViewModel(applic
     private val _nutriscore = MutableLiveData<String>()
     val nutriscore : LiveData<String> = _nutriscore
 
+    private val _fat_100g = MutableLiveData<Double>()
+    val fat_100g : LiveData<Double> = _fat_100g
+
+    private val _carbo_100g = MutableLiveData<Double>()
+    val carbo_100g : LiveData<Double> = _carbo_100g
+
+    private val _protein_100g = MutableLiveData<Double>()
+    val protein_100g : LiveData<Double> = _protein_100g
+
+    private val _date = MutableLiveData<String>()
+    val date : LiveData<String> = _date
+
 
     fun setProductName(newProductName: String){
         _productName.value = newProductName
@@ -29,4 +42,24 @@ class QuickAdditionViewModel(application: Application) : AndroidViewModel(applic
     fun setProductCalories(newProductCalories: Int){
         _calories.value = newProductCalories
     }
+
+    fun setFat(newFat: Double  ){
+        _fat_100g.value = newFat
+    }
+
+    fun setCarbo(newCarbo: Double  ){
+        _carbo_100g.value = newCarbo
+    }
+
+    fun setProtein(newProtein: Double  ){
+        _protein_100g.value = newProtein
+    }
+
+
+    fun save(ingestion: IngestionModel){
+        repository.insert(ingestion)
+
+    }
+
+
 }

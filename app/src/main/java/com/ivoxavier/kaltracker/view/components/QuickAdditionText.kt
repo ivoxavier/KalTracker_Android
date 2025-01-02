@@ -43,22 +43,11 @@ fun QuickAdditionText(viewModel: QuickAdditionViewModel, label:String, input:Str
             .height(60.dp),
             value = text,
             onValueChange = {
-                if(input == KalTrackerConstants.QUICK_ADDITION.PRODUCT_NAME){
-                    if(it.text.isNotEmpty()){
-                        viewModel.setProductName(it.text)
-                    }
-                    else{
-                        Toast.makeText(context,context.getString(R.string.user_config_profile_body_measure_toast_text), Toast.LENGTH_SHORT).show()
-                    }
-                }else{
-                    //KalTrackerConstants.QUICK_ADDITION.PRODUCT_CALORIES
-                    if(it.text.isNotEmpty()){
-                        viewModel.setProductCalories(it.text.toInt())
-                    }
-                    else{
-                        Toast.makeText(context,context.getString(R.string.user_config_profile_body_measure_toast_text), Toast.LENGTH_SHORT).show()
-                    }
-                }
+                            if((input == KalTrackerConstants.QUICK_ADDITION.PRODUCT_NAME) && it.text.isNotEmpty()){
+                                    viewModel.setProductName(it.text)
+                            }else if ((input == KalTrackerConstants.QUICK_ADDITION.PRODUCT_CALORIES) && it.text.isNotEmpty() ){
+                                    viewModel.setProductCalories(it.text.toInt())
+                            }
                             },
             //label = {Text(text= stringResource(id = R.string.quick_addition_product_name))}
             label = {Text(modifier = Modifier.padding(0.dp),

@@ -90,6 +90,8 @@ class KalTrackerConstants private constructor(){
     object QUICK_ADDITION{
         const val PRODUCT_NAME = "product_name"
         const val PRODUCT_CALORIES = "product_calories"
+        const val PRODUCT_MACROS = "product_macros"
+
         object NUTRISCORE{
             const val A = "a"
             const val B = "b"
