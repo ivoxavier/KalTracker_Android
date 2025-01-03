@@ -30,7 +30,7 @@ import com.ivoxavier.kaltracker.service.repository.constants.KalTrackerConstants
 import com.ivoxavier.kaltracker.viewmodel.QuickAdditionViewModel
 
 @Composable
-fun QuickAdditionText(viewModel: QuickAdditionViewModel, label:String, input:String){
+fun QuickAdditionText(viewModel: QuickAdditionViewModel, label:String, input:String,onProductNameChange: (String) -> Unit = {}){
     var text by remember { mutableStateOf(TextFieldValue("")) }
     var context = LocalContext.current
     Row(modifier = Modifier
@@ -42,12 +42,21 @@ fun QuickAdditionText(viewModel: QuickAdditionViewModel, label:String, input:Str
             .fillMaxWidth(0.8f)
             .height(60.dp),
             value = text,
-            onValueChange = {
-                            if((input == KalTrackerConstants.QUICK_ADDITION.PRODUCT_NAME) && it.text.isNotEmpty()){
-                                    viewModel.setProductName(it.text)
-                            }else if ((input == KalTrackerConstants.QUICK_ADDITION.PRODUCT_CALORIES) && it.text.isNotEmpty() ){
-                                    viewModel.setProductCalories(it.text.toInt())
-                            }
+            onValueChange = { newText ->
+                text = newText
+                if((input == KalTrackerConstants.QUICK_ADDITION.PRODUCT_NAME) && newText.text.isNotEmpty()){
+                    onProductNameChange(newText.text)
+                    viewModel.setProductName(newText.text)
+                }else if ((input == KalTrackerConstants.QUICK_ADDITION.PRODUCT_CALORIES) && newText.text.isNotEmpty() ){
+                    viewModel.setProductCalories(newText.text.toInt())
+                } else{
+                    if(newText.text.matches(Regex("^[0-9]+(\\.[0-9]+)?\$"))){
+                        viewModel.setFat(newText.text.toDouble())
+                        viewModel.setCarbo(newText.text.toDouble())
+                        viewModel.setProtein(newText.text.toDouble())
+                    }
+
+                }
                             },
             //label = {Text(text= stringResource(id = R.string.quick_addition_product_name))}
             label = {Text(modifier = Modifier.padding(0.dp),

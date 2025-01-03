@@ -1,10 +1,12 @@
 package com.ivoxavier.kaltracker.view.fragments
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -39,6 +41,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -53,6 +56,7 @@ import com.ivoxavier.kaltracker.R
 import com.ivoxavier.kaltracker.service.repository.constants.KalTrackerConstants
 import com.ivoxavier.kaltracker.service.repository.model.IngestionModel
 import com.ivoxavier.kaltracker.view.QuickAdditionActivity
+import com.ivoxavier.kaltracker.view.QuickListFoodsActivity
 import com.ivoxavier.kaltracker.view.components.ListItemVerticalSpacer
 import com.ivoxavier.kaltracker.view.components.QuickAdditionText
 import com.ivoxavier.kaltracker.viewmodel.QuickAdditionViewModel
@@ -66,29 +70,44 @@ class ProductNameCaloriesFragment: Fragment() {
         return ComposeView(requireContext()).apply{
             setContent{
                 val viewModel = viewModel<QuickAdditionViewModel>(viewModelStoreOwner = requireActivity())
+                val context = LocalContext.current
+                var showFAB by remember { mutableStateOf(false) }
 
-                var productName by remember { mutableStateOf(TextFieldValue("")) }
-                var productCalories by remember { mutableStateOf(TextFieldValue("")) }
                 val focusManager = LocalFocusManager.current
 
                 Scaffold(
                     floatingActionButton = {
-                        FloatingActionButton(onClick = {
-                            val model = IngestionModel().apply {
-                                this.name = viewModel.productName.value!!
-                                this.cal = viewModel.calories.value!!.toInt()
-                                this.nutriscore = viewModel.nutriscore.value!!
-                                this.fat = viewModel.fat_100g.value!!.toDouble()
-                                this.carbo = viewModel.carbo_100g.value!!.toDouble()
-                                this.protein = viewModel.protein_100g.value!!.toDouble()
-                                this.meal = viewModel.mealCategory
+                        if(showFAB){
+                            FloatingActionButton(onClick = {
+                                if(viewModel.productName.value != null && viewModel.calories.value != null &&
+                                    viewModel.fat_100g.value != null && viewModel.fat_100g.value.toString().isNotEmpty() &&
+                                    viewModel.carbo_100g.value != null && viewModel.carbo_100g.value.toString().isNotEmpty() &&
+                                    viewModel.protein_100g.value != null && viewModel.protein_100g.value.toString().isNotEmpty()
+                                    ){
+                                    val model = IngestionModel().apply {
+                                        this.name = viewModel.productName.value!!
+                                        this.cal = viewModel.calories.value!!.toInt()
+                                        this.nutriscore = viewModel.nutriscore.value!!
+                                        this.fat = viewModel.fat_100g.value!!.toDouble()
+                                        this.carbo = viewModel.carbo_100g.value!!.toDouble()
+                                        this.protein = viewModel.protein_100g.value!!.toDouble()
+                                        this.meal = viewModel.mealCategory
+                                    }
+                                    //save to db
+                                    viewModel.save(model)
+                                    focusManager.clearFocus()
+                                    val activity = context as Activity
+                                    activity.finish()
+                                }
+                                else{
+                                    Toast.makeText(requireContext(), resources.getString(R.string.global_string_enter_value), Toast.LENGTH_SHORT).show()
+                                }
+
+                            }) {
+                                Icon(Icons.Filled.Add, contentDescription = "Add")
                             }
-
-                            viewModel.save(model)
-
-                        }) {
-                            Icon(Icons.Filled.Add, contentDescription = "Add")
                         }
+
                     },
                     floatingActionButtonPosition = FabPosition.End
                 ) { paddingValues ->
@@ -110,13 +129,13 @@ class ProductNameCaloriesFragment: Fragment() {
 
                             Spacer(modifier = Modifier.height(16.dp))
 
-                            QuickAdditionText(viewModel,resources.getString(R.string.quick_addition_product_name),KalTrackerConstants.QUICK_ADDITION.PRODUCT_NAME)
+                            QuickAdditionText(viewModel,resources.getString(R.string.quick_addition_product_name),KalTrackerConstants.QUICK_ADDITION.PRODUCT_NAME, onProductNameChange = { showFAB = it.isNotEmpty() })
 
                             QuickAdditionText(viewModel,resources.getString(R.string.quick_addition_product_calories),KalTrackerConstants.QUICK_ADDITION.PRODUCT_CALORIES)
 
                             Spacer(modifier = Modifier.height(16.dp))
 
-                            NutriscoreList()
+                            NutriscoreList(viewModel)
 
                             Spacer(modifier = Modifier.height(16.dp))
                         }
@@ -129,7 +148,8 @@ class ProductNameCaloriesFragment: Fragment() {
 
 
 @Composable
-fun NutriscoreList(){
+fun NutriscoreList(viewModel: QuickAdditionViewModel){
+    var selectedNutriscore by remember { mutableStateOf("") } // Add this line
     val isListExpanded = remember {
         mutableStateOf(false)
     }
@@ -161,7 +181,7 @@ fun NutriscoreList(){
                     .clickable { isListExpanded.value = true }
                     .padding(8.dp)
             ) {
-                Text(text = stringResource(id = R.string.quick_addition_nutriscore))
+                Text(text = if (selectedNutriscore.isEmpty()) stringResource(id = R.string.quick_addition_nutriscore) else selectedNutriscore)
                 Image(
                     painter = painterResource(id = R.drawable.baseline_arrow_drop_down_24),
                     contentDescription = "DropDown Icon"
@@ -194,7 +214,9 @@ fun NutriscoreList(){
                         },
                         onClick = {
                             isListExpanded.value = false
+                            selectedNutriscore = nutriscore
                             itemPostion.value = index
+                            viewModel.setNutriscore(nutriscore)
                         }
                     )
                 }

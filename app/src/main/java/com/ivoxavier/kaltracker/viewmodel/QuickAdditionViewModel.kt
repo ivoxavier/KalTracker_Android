@@ -55,6 +55,9 @@ class QuickAdditionViewModel(application: Application) : AndroidViewModel(applic
         _protein_100g.value = newProtein
     }
 
+    fun setNutriscore(newNutriscore: String){
+        _nutriscore.value = newNutriscore
+    }
 
     fun save(ingestion: IngestionModel){
         repository.insert(ingestion)

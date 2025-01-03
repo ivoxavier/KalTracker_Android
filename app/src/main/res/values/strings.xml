@@ -29,7 +29,7 @@
     <string name="user_config_profile_card_heavy_activity">High</string>
     <string name="user_config_profile_card_male_sex_at_birth">Male</string>
     <string name="user_config_profile_card_female_sex_at_birth">Female</string>
-    <string name="user_config_profile_body_measure_toast_text">Enter a value</string>
+    <string name="global_string_enter_value">Enter a value</string>
     <string name="home_ingestion_card_breakfast">Breakfast</string>
     <string name="home_ingestion_card_lunch">Lunch</string>
     <string name="home_ingestion_card_dinner">Dinner</string>
