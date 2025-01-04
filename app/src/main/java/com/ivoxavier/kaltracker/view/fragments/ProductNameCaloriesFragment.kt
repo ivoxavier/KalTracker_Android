@@ -1,7 +1,6 @@
 package com.ivoxavier.kaltracker.view.fragments
 
 import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,13 +22,11 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -46,7 +43,6 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -55,11 +51,11 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.ivoxavier.kaltracker.R
 import com.ivoxavier.kaltracker.service.repository.constants.KalTrackerConstants
 import com.ivoxavier.kaltracker.service.repository.model.IngestionModel
-import com.ivoxavier.kaltracker.view.QuickAdditionActivity
-import com.ivoxavier.kaltracker.view.QuickListFoodsActivity
-import com.ivoxavier.kaltracker.view.components.ListItemVerticalSpacer
+import com.ivoxavier.kaltracker.service.repository.model.UserFoodsListModel
+import com.ivoxavier.kaltracker.service.repository.utils.FormatDate
 import com.ivoxavier.kaltracker.view.components.QuickAdditionText
 import com.ivoxavier.kaltracker.viewmodel.QuickAdditionViewModel
+import com.ivoxavier.kaltracker.viewmodel.QuickListFoodsViewModel
 
 class ProductNameCaloriesFragment: Fragment() {
     override fun onCreateView(
@@ -70,6 +66,7 @@ class ProductNameCaloriesFragment: Fragment() {
         return ComposeView(requireContext()).apply{
             setContent{
                 val viewModel = viewModel<QuickAdditionViewModel>(viewModelStoreOwner = requireActivity())
+                val viewModel2 = viewModel<QuickListFoodsViewModel>(viewModelStoreOwner = requireActivity())
                 val context = LocalContext.current
                 var showFAB by remember { mutableStateOf(false) }
 
@@ -84,23 +81,16 @@ class ProductNameCaloriesFragment: Fragment() {
                                     viewModel.carbo_100g.value != null && viewModel.carbo_100g.value.toString().isNotEmpty() &&
                                     viewModel.protein_100g.value != null && viewModel.protein_100g.value.toString().isNotEmpty()
                                     ){
-                                    viewModel.getUserId()?.let{ userId ->
-                                        val model = IngestionModel().apply {
-                                            this.name = viewModel.productName.value!!
-                                            this.cal = viewModel.calories.value!!.toInt()
-                                            this.nutriscore = viewModel.nutriscore.value!!
-                                            this.fat = viewModel.fat_100g.value!!.toDouble()
-                                            this.carbo = viewModel.carbo_100g.value!!.toDouble()
-                                            this.protein = viewModel.protein_100g.value!!.toDouble()
-                                            this.meal = viewModel.mealCategory
-                                            this.id_user = userId
-                                        }
-                                        //save to db
-                                        viewModel.save(model)
-                                        focusManager.clearFocus()
-                                        val activity = context as Activity
-                                        activity.finish()
-                                    }
+
+                                    //check if the productName already exists in the userfoodslist table
+                                    isNewProduct(viewModel,viewModel2)
+
+                                    //register the product in the ingestions table
+                                    registerIngestionProduct(viewModel)
+
+                                    focusManager.clearFocus()
+                                    val activity = context as Activity
+                                    activity.finish()
                                 }
                                 else{
                                     Toast.makeText(requireContext(), resources.getString(R.string.global_string_enter_value), Toast.LENGTH_SHORT).show()
@@ -150,6 +140,44 @@ class ProductNameCaloriesFragment: Fragment() {
 }
 
 
+
+
+fun isNewProduct(viewModel: QuickAdditionViewModel, viewModel2: QuickListFoodsViewModel){
+    if(viewModel2.isNewProduct(viewModel.productName.value!!)){
+        viewModel.getUserId()?.let{ userId ->
+            val model = UserFoodsListModel().apply {
+                this.name = viewModel.productName.value!!
+                this.cal = viewModel.calories.value!!.toInt()
+                this.nutriscore = viewModel.nutriscore.value!!
+                this.fat = viewModel.fat_100g.value!!.toDouble()
+                this.carbo = viewModel.carbo_100g.value!!.toDouble()
+                this.protein = viewModel.protein_100g.value!!.toDouble()
+                this.id_user = userId
+            }
+            viewModel2.save(model)
+        }
+    }
+}
+
+
+fun registerIngestionProduct(viewModel: QuickAdditionViewModel){
+    viewModel.getUserId()?.let{ userId ->
+        val model = IngestionModel().apply {
+            this.name = viewModel.productName.value!!
+            this.cal = viewModel.calories.value!!.toInt()
+            this.nutriscore = viewModel.nutriscore.value!!
+            this.fat = viewModel.fat_100g.value!!.toDouble()
+            this.carbo = viewModel.carbo_100g.value!!.toDouble()
+            this.protein = viewModel.protein_100g.value!!.toDouble()
+            this.meal = viewModel.mealCategory
+            this.id_user = userId
+            this.date = FormatDate(System.currentTimeMillis())
+        }
+        //save to db
+        viewModel.save(model)
+    }
+}
+
 @Composable
 fun NutriscoreList(viewModel: QuickAdditionViewModel){
     var selectedNutriscore by remember { mutableStateOf("") } // Add this line
@@ -184,7 +212,9 @@ fun NutriscoreList(viewModel: QuickAdditionViewModel){
                     .clickable { isListExpanded.value = true }
                     .padding(8.dp)
             ) {
-                Text(text = if (selectedNutriscore.isEmpty()) stringResource(id = R.string.quick_addition_nutriscore) else selectedNutriscore)
+                Text(text = stringResource(id = R.string.quick_addition_nutriscore) + ":")
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(text = if (selectedNutriscore.isEmpty()) stringResource(id = R.string.global_string_nothing_selected) else selectedNutriscore)
                 Image(
                     painter = painterResource(id = R.drawable.baseline_arrow_drop_down_24),
                     contentDescription = "DropDown Icon"

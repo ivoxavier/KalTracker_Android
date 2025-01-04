@@ -42,6 +42,7 @@
     <string name="global_string_fat">Fat</string>
     <string name="global_string_carbo">Carbo</string>
     <string name="global_string_protein">Protein</string>
+    <string name="global_string_nothing_selected">Nothing Selected</string>
     <string name="menu_item_your_profile">Your Profile</string>
     <string name="menu_item_user">User</string>
     <string name="menu_item_data_analysis">Data Analysis</string>

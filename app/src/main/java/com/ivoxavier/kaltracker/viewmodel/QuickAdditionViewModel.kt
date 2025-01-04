@@ -12,6 +12,8 @@ import com.ivoxavier.kaltracker.service.repository.model.IngestionModel
 class QuickAdditionViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository = IngestionRepository(application)
+
+    //need to fetch the id of user
     private val userDAO : UserDAO = KalTrackerDatabase.getDataBase(application).userDao()
 
 
@@ -35,9 +37,6 @@ class QuickAdditionViewModel(application: Application) : AndroidViewModel(applic
 
     private val _protein_100g = MutableLiveData<Double>()
     val protein_100g : LiveData<Double> = _protein_100g
-
-    /*private val _date = MutableLiveData<String>()
-    val date : LiveData<String> = _date*/
 
 
     fun setProductName(newProductName: String){
@@ -70,7 +69,6 @@ class QuickAdditionViewModel(application: Application) : AndroidViewModel(applic
 
     fun save(ingestion: IngestionModel){
         repository.insert(ingestion)
-
     }
 
 

@@ -38,6 +38,9 @@ class QuickAdditionActivity: AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
 
+        val mealCategory = intent.getIntExtra("mealCategory", -1)
+        viewModel.mealCategory = mealCategory
+
 
         binding = ActivityQuickAdditionBinding.inflate(layoutInflater)
         setContentView(binding.root)

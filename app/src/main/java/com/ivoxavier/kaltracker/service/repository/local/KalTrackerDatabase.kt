@@ -6,15 +6,19 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.ivoxavier.kaltracker.service.repository.local.dao.IngestionDAO
 import com.ivoxavier.kaltracker.service.repository.local.dao.UserDAO
+import com.ivoxavier.kaltracker.service.repository.local.dao.UserFoodsListDAO
 import com.ivoxavier.kaltracker.service.repository.model.IngestionModel
+import com.ivoxavier.kaltracker.service.repository.model.UserFoodsListModel
 import com.ivoxavier.kaltracker.service.repository.model.UserModel
 
 @Database(entities = [UserModel::class,
-                     IngestionModel::class], version = 1 )
+                     IngestionModel::class,
+                     UserFoodsListModel::class], version = 1 )
 abstract class KalTrackerDatabase: RoomDatabase() {
 
     abstract fun userDao(): UserDAO
     abstract fun ingestionsDao(): IngestionDAO
+    abstract fun userFoodsListDao(): UserFoodsListDAO
 
     companion object{
         private lateinit var INSTANCE: KalTrackerDatabase
