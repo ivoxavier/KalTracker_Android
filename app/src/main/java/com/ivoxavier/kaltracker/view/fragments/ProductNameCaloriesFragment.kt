@@ -143,7 +143,7 @@ class ProductNameCaloriesFragment: Fragment() {
 
 
 fun isNewProduct(viewModel: QuickAdditionViewModel, viewModel2: QuickListFoodsViewModel){
-    if(viewModel2.isNewProduct(viewModel.productName.value!!)){
+    if(viewModel2.isNewProduct(viewModel.productName.value!!).not()){
         viewModel.getUserId()?.let{ userId ->
             val model = UserFoodsListModel().apply {
                 this.name = viewModel.productName.value!!

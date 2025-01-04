@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FabPosition
@@ -31,6 +32,8 @@ class QuickListFoodsActivity: ComponentActivity() {
         viewModel.mealCategory = mealCategory
 
         setContent {
+            val products = viewModel.getProducts(1)
+
             Scaffold(
                 floatingActionButton = {
                     FloatingActionButton(onClick = {
@@ -44,8 +47,10 @@ class QuickListFoodsActivity: ComponentActivity() {
                 floatingActionButtonPosition = FabPosition.End
             ) { innerPadding ->
                 LazyColumn(contentPadding = innerPadding) {
-                    items(1) {
+                    items(products) {product ->
+                        Text(text = product.name)
                         //Text(text = if (mealCategory.toString() == "0") "Breakfast" else if (mealCategory.toString() == "1") "Lunch" else if (mealCategory.toString() == "2") "Dinner" else "Snacks")
+
                     }
                 }
             }

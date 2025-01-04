@@ -14,4 +14,6 @@ interface UserFoodsListDAO{
     @Query("SELECT EXISTS(SELECT * FROM user_foods_list WHERE name = :name)")
     fun isNewProduct(name: String): Boolean
 
+    @Query("SELECT * FROM user_foods_list WHERE id_user = :id_user")
+    fun getAll(id_user: Int): List<UserFoodsListModel>
 }
