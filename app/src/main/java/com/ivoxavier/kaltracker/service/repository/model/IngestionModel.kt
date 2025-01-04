@@ -34,7 +34,7 @@ class IngestionModel {
     @ColumnInfo(name = KalTrackerConstants.DB.INGESTIONS.COLUMNS.PROTEIN)
     var protein: Double = 0.0
 
-    @ColumnInfo(name = KalTrackerConstants.DB.INGESTIONS.COLUMNS.DATE)
+    @ColumnInfo(name = KalTrackerConstants.DB.INGESTIONS.COLUMNS.DATE,defaultValue = "(strftime('%s', 'now'))")
     var date: String = ""
 
     @ColumnInfo(name = KalTrackerConstants.DB.INGESTIONS.COLUMNS.MEAL)

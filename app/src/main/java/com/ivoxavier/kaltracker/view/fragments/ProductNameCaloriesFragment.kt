@@ -84,20 +84,23 @@ class ProductNameCaloriesFragment: Fragment() {
                                     viewModel.carbo_100g.value != null && viewModel.carbo_100g.value.toString().isNotEmpty() &&
                                     viewModel.protein_100g.value != null && viewModel.protein_100g.value.toString().isNotEmpty()
                                     ){
-                                    val model = IngestionModel().apply {
-                                        this.name = viewModel.productName.value!!
-                                        this.cal = viewModel.calories.value!!.toInt()
-                                        this.nutriscore = viewModel.nutriscore.value!!
-                                        this.fat = viewModel.fat_100g.value!!.toDouble()
-                                        this.carbo = viewModel.carbo_100g.value!!.toDouble()
-                                        this.protein = viewModel.protein_100g.value!!.toDouble()
-                                        this.meal = viewModel.mealCategory
+                                    viewModel.getUserId()?.let{ userId ->
+                                        val model = IngestionModel().apply {
+                                            this.name = viewModel.productName.value!!
+                                            this.cal = viewModel.calories.value!!.toInt()
+                                            this.nutriscore = viewModel.nutriscore.value!!
+                                            this.fat = viewModel.fat_100g.value!!.toDouble()
+                                            this.carbo = viewModel.carbo_100g.value!!.toDouble()
+                                            this.protein = viewModel.protein_100g.value!!.toDouble()
+                                            this.meal = viewModel.mealCategory
+                                            this.id_user = userId
+                                        }
+                                        //save to db
+                                        viewModel.save(model)
+                                        focusManager.clearFocus()
+                                        val activity = context as Activity
+                                        activity.finish()
                                     }
-                                    //save to db
-                                    viewModel.save(model)
-                                    focusManager.clearFocus()
-                                    val activity = context as Activity
-                                    activity.finish()
                                 }
                                 else{
                                     Toast.makeText(requireContext(), resources.getString(R.string.global_string_enter_value), Toast.LENGTH_SHORT).show()

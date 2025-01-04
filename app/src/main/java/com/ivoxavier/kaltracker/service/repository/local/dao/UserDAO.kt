@@ -16,7 +16,7 @@ interface UserDAO {
     fun update(user: UserModel): Int
 
 
-    @Query("SELECT id FROM user")
+    @Query("SELECT id FROM user LIMIT 1")
     fun getId() : Int?
 
     @Query("SELECT age FROM user")

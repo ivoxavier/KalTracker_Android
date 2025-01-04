@@ -5,10 +5,15 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.ivoxavier.kaltracker.service.repository.IngestionRepository
+import com.ivoxavier.kaltracker.service.repository.local.KalTrackerDatabase
+import com.ivoxavier.kaltracker.service.repository.local.dao.UserDAO
 import com.ivoxavier.kaltracker.service.repository.model.IngestionModel
 
 class QuickAdditionViewModel(application: Application) : AndroidViewModel(application) {
+
     private val repository = IngestionRepository(application)
+    private val userDAO : UserDAO = KalTrackerDatabase.getDataBase(application).userDao()
+
 
     //receives the meal category from quicklistfoodsactivity
     var mealCategory: Int = -1
@@ -31,8 +36,8 @@ class QuickAdditionViewModel(application: Application) : AndroidViewModel(applic
     private val _protein_100g = MutableLiveData<Double>()
     val protein_100g : LiveData<Double> = _protein_100g
 
-    private val _date = MutableLiveData<String>()
-    val date : LiveData<String> = _date
+    /*private val _date = MutableLiveData<String>()
+    val date : LiveData<String> = _date*/
 
 
     fun setProductName(newProductName: String){
@@ -57,6 +62,10 @@ class QuickAdditionViewModel(application: Application) : AndroidViewModel(applic
 
     fun setNutriscore(newNutriscore: String){
         _nutriscore.value = newNutriscore
+    }
+
+    fun getUserId(): Int? {
+        return userDAO.getId()
     }
 
     fun save(ingestion: IngestionModel){
