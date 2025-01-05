@@ -35,6 +35,8 @@
             android:theme="@style/Theme.KalTracker"/>
         <activity android:name="com.ivoxavier.kaltracker.view.QuickAdditionActivity"
             android:theme="@style/Theme.KalTracker"/>
+        <activity android:name="com.ivoxavier.kaltracker.view.OnlineSourcesActivity"
+            android:theme="@style/Theme.KalTracker"/>
     </application>
 
 </manifest>

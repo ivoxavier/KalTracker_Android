@@ -8,6 +8,7 @@ class Settings(context: Context) {
     private val appSettings: SharedPreferences = context.getSharedPreferences("appsettings", Context.MODE_PRIVATE)
 
     private val IS_CLEAN_INSTALL = "is_clean_install"
+    private val OPEN_FOODS_FACTS_API = "open_foods_facts_api"
 
     fun isCleanInstall(): Boolean {
         return if (appSettings.contains(IS_CLEAN_INSTALL)) {
@@ -15,6 +16,15 @@ class Settings(context: Context) {
         } else {
 
             appSettings.edit().putBoolean(IS_CLEAN_INSTALL, false).apply()
+            true
+        }
+    }
+
+    fun isOpenFoodsFactsApiEnabled(): Boolean {
+        return if (appSettings.contains(OPEN_FOODS_FACTS_API)) {
+            appSettings.getBoolean(OPEN_FOODS_FACTS_API, false) // Retrieve the value, default to false
+        } else {
+            appSettings.edit().putBoolean(OPEN_FOODS_FACTS_API, false).apply() // Store false as the default
             true
         }
     }
