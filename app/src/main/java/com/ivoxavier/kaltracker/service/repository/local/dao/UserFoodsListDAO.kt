@@ -1,5 +1,6 @@
 package com.ivoxavier.kaltracker.service.repository.local.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -15,5 +16,5 @@ interface UserFoodsListDAO{
     fun isNewProduct(name: String): Boolean
 
     @Query("SELECT * FROM user_foods_list WHERE id_user = :id_user")
-    fun getAll(id_user: Int): List<UserFoodsListModel>
+    fun getAll(id_user: Int): LiveData<List<UserFoodsListModel>>
 }
