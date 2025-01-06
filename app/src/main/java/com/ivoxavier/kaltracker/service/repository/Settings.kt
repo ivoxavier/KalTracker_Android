@@ -14,18 +14,12 @@ class Settings(context: Context) {
         return if (appSettings.contains(IS_CLEAN_INSTALL)) {
             false
         } else {
-
             appSettings.edit().putBoolean(IS_CLEAN_INSTALL, false).apply()
             true
         }
     }
 
     fun isOpenFoodsFactsApiEnabled(): Boolean {
-        return if (appSettings.contains(OPEN_FOODS_FACTS_API)) {
-            appSettings.getBoolean(OPEN_FOODS_FACTS_API, false) // Retrieve the value, default to false
-        } else {
-            appSettings.edit().putBoolean(OPEN_FOODS_FACTS_API, false).apply() // Store false as the default
-            true
-        }
+        return appSettings.getBoolean(OPEN_FOODS_FACTS_API, false)
     }
 }

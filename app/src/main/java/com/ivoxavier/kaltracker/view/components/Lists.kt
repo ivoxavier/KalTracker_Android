@@ -104,7 +104,7 @@ fun ListItemButton(text: String, icon: ImageVector,textButton:String) {
     }
 }
     @Composable
-    fun ListItemSwitch(text: String, icon: ImageVector) {
+    fun ListItemSwitch(text: String, icon: ImageVector,checked: Boolean, onSwitchChange: (Boolean) -> Unit) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
@@ -127,7 +127,12 @@ fun ListItemButton(text: String, icon: ImageVector,textButton:String) {
                 fontWeight = FontWeight.Medium
             )
             Spacer(modifier = Modifier.weight(1f))
-            Switch(checked = false, onCheckedChange = {})
+            Switch(
+                checked = checked,
+                onCheckedChange = { newValue ->
+                    onSwitchChange(newValue)
+                }
+            )
         }
     }
 

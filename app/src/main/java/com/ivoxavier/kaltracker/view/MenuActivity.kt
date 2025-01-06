@@ -114,7 +114,7 @@ class MenuActivity:ComponentActivity() {
                         // TODO: Handle click
                     }
                     ListItemDivider()
-                    ListItem(text = resources.getString(R.string.menu_item_online_sources), icon = ImageVector.vectorResource(id = R.drawable.ic_account_circle_24)) {
+                    ListItem(text = resources.getString(R.string.menu_item_online_sources), icon = ImageVector.vectorResource(id = R.drawable.baseline_online_24)) {
                         val intent = Intent(applicationContext, OnlineSourcesActivity::class.java)
                         startActivity(intent)
                     }

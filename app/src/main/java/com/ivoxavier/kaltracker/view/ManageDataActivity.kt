@@ -35,7 +35,7 @@ class ManageDataActivity: ComponentActivity() {
                 }
                 item {
                     ListItemHeader(resources.getString(R.string.manage_data_list_header_ingestions))
-                    ListItemSwitch(text = resources.getString(R.string.manage_data_list_item_delete_ingestions_automatically),icon = ImageVector.vectorResource(id = R.drawable.ic_account_circle_24))
+                    ListItemSwitch(text = resources.getString(R.string.manage_data_list_item_delete_ingestions_automatically),icon = ImageVector.vectorResource(id = R.drawable.ic_account_circle_24),checked= false, onSwitchChange = {})
                 }
 
                 item {
