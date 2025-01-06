@@ -1,9 +1,11 @@
 package com.ivoxavier.kaltracker.viewmodel
 
 import android.app.Application
+import android.content.SharedPreferences
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.ivoxavier.kaltracker.service.repository.Settings
 import com.ivoxavier.kaltracker.service.repository.UserFoodsListRepository
 import com.ivoxavier.kaltracker.service.repository.local.KalTrackerDatabase
 import com.ivoxavier.kaltracker.service.repository.local.dao.UserDAO
@@ -27,7 +29,6 @@ class QuickListFoodsViewModel(application: Application) : AndroidViewModel(appli
     private val _products = MutableLiveData<List<UserFoodsListModel>>()
     val products: LiveData<List<UserFoodsListModel>> = userFoodsListDao.getAll(1)
 
-
     fun save(userFoodsList: UserFoodsListModel){
         repository.insert(userFoodsList)
     }
@@ -35,5 +36,4 @@ class QuickListFoodsViewModel(application: Application) : AndroidViewModel(appli
     fun isNewProduct(name: String): Boolean{
         return userFoodsListDao.isNewProduct(name)
     }
-
 }

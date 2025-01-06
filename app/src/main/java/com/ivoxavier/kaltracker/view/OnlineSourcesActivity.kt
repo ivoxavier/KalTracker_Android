@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import com.ivoxavier.kaltracker.R
+import com.ivoxavier.kaltracker.service.repository.constants.KalTrackerConstants
 import com.ivoxavier.kaltracker.view.components.ListItemHeader
 import com.ivoxavier.kaltracker.view.components.ListItemSwitch
 import com.ivoxavier.kaltracker.view.components.TopTextHeader
@@ -24,12 +25,11 @@ class OnlineSourcesActivity: ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val appSettings = getSharedPreferences("appsettings", MODE_PRIVATE)
+            val appSettings = getSharedPreferences(KalTrackerConstants.APP_SETTINGS.APP_SETTINGS_NAME, MODE_PRIVATE)
             var openFoodFactsEnabled by remember {
-                mutableStateOf(appSettings.getBoolean("OPEN_FOODS_FACTS_API", false))
+                mutableStateOf(appSettings.getBoolean(KalTrackerConstants.APP_SETTINGS.OPEN_FOODS_FACTS_API, false))
             }
 
-            var test= ""
             LazyColumn(modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp)) {
@@ -41,11 +41,9 @@ class OnlineSourcesActivity: ComponentActivity() {
                         checked = openFoodFactsEnabled,
                         onSwitchChange = { isChecked ->
                             openFoodFactsEnabled = isChecked
-                            appSettings.edit().putBoolean("OPEN_FOODS_FACTS_API", isChecked).apply()
-                            //test = appSettings.getString("OPEN_FOODS_FACTS_API").toString()
+                            appSettings.edit().putBoolean(KalTrackerConstants.APP_SETTINGS.OPEN_FOODS_FACTS_API, isChecked).apply()
                         }
                     )
-                    TopTextHeader("OPEN_FOODS_FACTS_API: $openFoodFactsEnabled")
                 }
 
             }

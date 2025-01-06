@@ -86,6 +86,14 @@ class KalTrackerConstants private constructor(){
     }
     //endregion
 
+    //region AppSettings
+    object APP_SETTINGS{
+        const val APP_SETTINGS_NAME = "appsettings"
+        const val IS_CLEAN_INSTALL = "is_clean_install"
+        const val OPEN_FOODS_FACTS_API = "open_foods_facts_api"
+    }
+    //endregion
+
     //region QuickAdditionActivity
     object QUICK_ADDITION{
         const val PRODUCT_NAME = "product_name"

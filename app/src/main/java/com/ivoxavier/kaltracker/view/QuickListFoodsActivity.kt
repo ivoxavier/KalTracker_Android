@@ -73,8 +73,6 @@ fun ProductList(viewModel: QuickListFoodsViewModel, mealCategory: Int){
         snapshotFlow { appSettings.isOpenFoodsFactsApiEnabled() }
             .collect { newValue ->
                 openFoodFactsEnabled = newValue
-                println("openFoodFactsEnabled: $openFoodFactsEnabled")
-                    //e sempre falso
             }
     }
 
@@ -99,6 +97,7 @@ fun ProductList(viewModel: QuickListFoodsViewModel, mealCategory: Int){
                     }
                 }
             }
+
             if (openFoodFactsEnabled) {
                 FloatingActionButton(
                     onClick = { /* TODO */ },
