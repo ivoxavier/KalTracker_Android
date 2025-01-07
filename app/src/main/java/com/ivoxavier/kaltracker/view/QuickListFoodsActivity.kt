@@ -100,7 +100,11 @@ fun ProductList(viewModel: QuickListFoodsViewModel, mealCategory: Int){
 
             if (openFoodFactsEnabled) {
                 FloatingActionButton(
-                    onClick = { /* TODO */ },
+                    onClick = {
+                        val intent = Intent(context, ScanBarActivity::class.java)
+                        intent.putExtra("mealCategory", mealCategory)
+                        context.startActivity(intent)
+                    },
                     modifier = Modifier
                         .align(Alignment.TopEnd)
                         .offset(x = (-16).dp, y = 620.dp)

@@ -2,6 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <meta-data
+        android:name="com.google.mlkit.vision.DEPENDENCIES"
+        android:value="barcode_ui"/>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -37,6 +46,10 @@
             android:theme="@style/Theme.KalTracker"/>
         <activity android:name="com.ivoxavier.kaltracker.view.OnlineSourcesActivity"
             android:theme="@style/Theme.KalTracker"/>
+        <activity android:name="com.ivoxavier.kaltracker.view.ScanBarActivity"
+            android:theme="@style/Theme.KalTracker"/>
+
     </application>
+
 
 </manifest>
