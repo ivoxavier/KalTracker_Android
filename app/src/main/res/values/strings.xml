@@ -76,6 +76,8 @@
     <string name="quick_addition_macro_protein">Protein</string>
     <string name="quick_foods_lists">Your Foods List</string>
     <string name="online_sources_open_foods_facts_api">OpenFoodsFacts</string>
+    <string name="barcode_canceled_reading">Scanning Canceled</string>
+
 
 
 </resources>

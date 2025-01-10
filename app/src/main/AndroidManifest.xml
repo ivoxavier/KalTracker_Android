@@ -2,16 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-feature
-        android:name="android.hardware.camera"
-        android:required="false" />
-    <uses-permission android:name="android.permission.CAMERA" />
-
+    <!-- Let's Google Play Services download the scanner library. -->
     <meta-data
         android:name="com.google.mlkit.vision.DEPENDENCIES"
         android:value="barcode_ui"/>
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -46,7 +43,7 @@
             android:theme="@style/Theme.KalTracker"/>
         <activity android:name="com.ivoxavier.kaltracker.view.OnlineSourcesActivity"
             android:theme="@style/Theme.KalTracker"/>
-        <activity android:name="com.ivoxavier.kaltracker.view.ScanBarActivity"
+        <activity android:name="com.ivoxavier.kaltracker.view.IngestionConfigActivity"
             android:theme="@style/Theme.KalTracker"/>
 
     </application>

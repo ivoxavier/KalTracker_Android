@@ -5,7 +5,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.lifecycle.ViewModelProvider
 import com.ivoxavier.kaltracker.viewmodel.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+//@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private lateinit var viewModel: MainViewModel

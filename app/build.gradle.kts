@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.kotlinKsp)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -79,5 +80,12 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.roomRuntime)
     ksp(libs.roomCompiler)
-    implementation(libs.mlkit.barcode.scanning)
+    implementation(libs.codescanner)
+    implementation(libs.gpsCoroutines)
+    implementation(libs.bundles.hilt){
+        exclude(group = "com.google.dagger", module= "dagger-compiler")
+    }
+    implementation(libs.kotlinxSerialization)
+
+
 }
