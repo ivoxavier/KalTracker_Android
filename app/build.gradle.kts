@@ -86,6 +86,5 @@ dependencies {
         exclude(group = "com.google.dagger", module= "dagger-compiler")
     }
     implementation(libs.kotlinxSerialization)
-
-
+    implementation(libs.retrofit)
 }
