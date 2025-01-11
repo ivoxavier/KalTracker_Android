@@ -86,6 +86,25 @@ class KalTrackerConstants private constructor(){
     }
     //endregion
 
+    //region API
+    object OPEN_FOODS_FACTS_API{
+        const val URL = "https://world.openfoodfacts.org/"
+        object VERSION{
+            const val V0 = "api/v0/"
+        }
+        object ENDPOINTS{
+            const val GET_PRODUCT = "product/"
+        }
+    }
+    //endregion
+
+    //region HTTP
+    object HTTP{
+        const val SUCCESS = 200
+    }
+
+    //endregion
+
     //region AppSettings
     object APP_SETTINGS{
         const val APP_SETTINGS_NAME = "appsettings"

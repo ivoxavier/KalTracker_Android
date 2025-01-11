@@ -3,6 +3,7 @@ package com.ivoxavier.kaltracker.view
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -47,9 +48,12 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.lifecycle.LifecycleOwner
+import com.ivoxavier.kaltracker.service.repository.model.ProductModel
 
 
-class QuickListFoodsActivity: ComponentActivity() {
+class QuickListFoodsActivity: ComponentActivity(), QuickListFoodsViewModel.BarcodeScannerCallback {
 
     lateinit var viewModel: QuickListFoodsViewModel
     private lateinit var barcodeScanner: BarcodeScanner
@@ -61,12 +65,20 @@ class QuickListFoodsActivity: ComponentActivity() {
 
         viewModel = ViewModelProvider(this)[QuickListFoodsViewModel::class.java]
 
+        viewModel.setBarcodeScannerCallback(this)
+
         val mealCategory = intent.getIntExtra("mealCategory", -1)
         viewModel.mealCategory = mealCategory
 
         setContent {
             ProductList(viewModel,mealCategory, barcodeScanner)
         }
+    }
+
+    override fun onBarcodeScanned(barcode: String) {
+//        viewModel.onBarcodeScanned(barcode)
+//        Log.d("BARCODE_SCANNED", "Barcode: $barcode")
+//        viewModel.onBarcodeScanned(barcode)
     }
 }
 
@@ -81,6 +93,9 @@ fun startQuickAdditionActivity(context: Context,mealCategory: Int) {
 @Composable
 fun ProductList(viewModel: QuickListFoodsViewModel, mealCategory: Int, barcodeScanner: BarcodeScanner){
     val context = LocalContext.current
+
+    val intent = Intent(context, IngestionConfigActivity::class.java)
+
     val products = viewModel.products.observeAsState(initial = emptyList())
     val appSettings = Settings(context)
     var openFoodFactsEnabled by remember { mutableStateOf(appSettings.isOpenFoodsFactsApiEnabled()) }
@@ -88,8 +103,31 @@ fun ProductList(viewModel: QuickListFoodsViewModel, mealCategory: Int, barcodeSc
     val scope = rememberCoroutineScope()
     val barcodeResults = barcodeScanner.barcodeResults.collectAsStateWithLifecycle()
 
+
+    /*val product = viewModel.scannedProduct.observeAsState().value
+    val apiError = viewModel.apiError.observeAsState().value*/
+
     var showScanFab by remember { mutableStateOf(false) }
 
+
+
+    viewModel.startActivityEvent.observe(context as LifecycleOwner) { product ->
+        product?.let {
+            intent.putExtra("product", it)
+            intent.putExtra("mealCategory", mealCategory)
+            context.startActivity(intent)
+        }
+    }
+
+
+
+    //observe changes on barcode scanner
+    LaunchedEffect(key1 = barcodeResults.value) {
+        barcodeResults.value?.let { barcode ->
+            viewModel.callback?.onBarcodeScanned(barcode)
+            viewModel.getProduct(barcode)
+        }
+    }
 
     //observe changes on shared preferences
     LaunchedEffect(key1 = Unit) {
@@ -147,10 +185,11 @@ fun ProductList(viewModel: QuickListFoodsViewModel, mealCategory: Int, barcodeSc
                 item{
                     ListItemHeader(title = stringResource(id = R.string.quick_foods_lists))
                 }
-                items(products.value) {product ->
+                itemsIndexed(products.value) {index,product ->
                     ListItemFoods(icon = Icons.Filled.Add, productName = product.name, calories = product.cal.toString()) {
-                            //TODO: Open product details
-                        val intent = Intent(context, IngestionConfigActivity::class.java)
+                        intent.putExtra("products", ArrayList(products.value)) // Importante: Converta para ArrayList
+                        intent.putExtra("productIndex", index)
+                        intent.putExtra("mealCategory", mealCategory)
                         context.startActivity(intent)
                     }
                 }

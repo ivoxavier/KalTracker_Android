@@ -4,10 +4,11 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.ivoxavier.kaltracker.service.repository.constants.KalTrackerConstants
+import java.io.Serializable
 
 
 @Entity(tableName = KalTrackerConstants.DB.USER_FOODS_LIST.TABLE_NAME)
-class UserFoodsListModel {
+class UserFoodsListModel: Serializable {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name=KalTrackerConstants.DB.USER_FOODS_LIST.COLUMNS.ID)

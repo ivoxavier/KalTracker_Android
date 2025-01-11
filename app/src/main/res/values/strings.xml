@@ -43,6 +43,7 @@
     <string name="global_string_carbo">Carbo</string>
     <string name="global_string_protein">Protein</string>
     <string name="global_string_nothing_selected">Nothing Selected</string>
+    <string name="global_string_unexpected_error">Unexpected Error</string>
     <string name="menu_item_your_profile">Your Profile</string>
     <string name="menu_item_user">User</string>
     <string name="menu_item_data_analysis">Data Analysis</string>
@@ -77,6 +78,7 @@
     <string name="quick_foods_lists">Your Foods List</string>
     <string name="online_sources_open_foods_facts_api">OpenFoodsFacts</string>
     <string name="barcode_canceled_reading">Scanning Canceled</string>
+    <string name="ingestion_config_header_title">Set Your Ingestion</string>
 
 
 

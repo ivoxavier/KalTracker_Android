@@ -87,4 +87,5 @@ dependencies {
     }
     implementation(libs.kotlinxSerialization)
     implementation(libs.retrofit)
+    implementation(libs.retrofit.gson.converter)
 }
