@@ -3,27 +3,42 @@ package com.ivoxavier.kaltracker.view
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModelProvider
 import com.ivoxavier.kaltracker.R
+import com.ivoxavier.kaltracker.service.repository.constants.KalTrackerConstants
 import com.ivoxavier.kaltracker.service.repository.model.Product
 import com.ivoxavier.kaltracker.service.repository.model.UserFoodsListModel
 import com.ivoxavier.kaltracker.view.components.ListItem
@@ -70,7 +85,7 @@ fun IngestionConfig(viewModel: IngestionConfigViewModel){
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(onClick = {
-                // TODO: Ação ao clicar no botão
+                // TODO: Accpet Button
             }) {
                 Icon(Icons.Filled.Check, contentDescription = "Add")
             }
@@ -87,27 +102,33 @@ fun IngestionConfig(viewModel: IngestionConfigViewModel){
                     {
                         if(productScanned != null){
                             productScanned?.productName?.let {
-                                Text(modifier = Modifier.padding(start = 16.dp),
-                                    fontSize = 18.sp,
-                                    text = it
-                                )
+                                HeaderText(it)
                             }
                             productScanned?.nutriments?.energyValue?.let {
-                                Text(stringResource(id = R.string.global_string_calories) + ": $it")
+                                HeaderText(stringResource(id = R.string.global_string_calories) + ": $it")
                             }
                         }
                         else{
                             userFoodsListIndex?.let {
                                 userFoodsList?.get(it)?.name?.let {
-                                    Text(modifier = Modifier.padding(start = 16.dp),
-                                        fontSize = 18.sp,
-                                        text = it
-                                    )
+                                    HeaderText(it)
                                 }
-                                }
-                            Text("Calorias: ${userFoodsListIndex?.let { userFoodsList?.get(it)?.cal }}")
+                            }
                         }
                 }
+
+                Row(modifier = Modifier
+                    .fillMaxWidth()
+                    ,horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically){
+                    userFoodsListIndex?.let {
+                            userFoodsList?.get(it)?.cal?.let {
+                                HeaderText(stringResource(id=R.string.global_string_calories) + ": " + it).toString()
+                         }
+                    }
+                }
+
+                ListItemVerticalSpacer()
 
                 if(productScanned != null){
                     productScanned?.nutriments?.carbohydrates100g?.let{
@@ -140,11 +161,103 @@ fun IngestionConfig(viewModel: IngestionConfigViewModel){
                 }
                 ListItemVerticalSpacer()
                 ListItemDivider()
-                ListItemHeader("Tamanho da Porção")
-                ListItemHeader("Qunrity")
+                ListItemHeader(stringResource(id=R.string.ingestion_config_size_portion))
 
+
+                SizePortionList()
+
+
+
+
+
+
+
+
+
+                ListItemHeader(stringResource(id=R.string.ingestion_config_quantity))
             }
-            // TODO: Adicione mais itens aqui
+
         }
     }
+}
+
+
+
+
+@Composable
+fun SizePortionList() {
+    var sizePortion by remember { mutableStateOf(0.0) }
+    val isListExpanded = remember {
+        mutableStateOf(false)
+    }
+
+    val itemPostion = remember {
+        mutableStateOf(0)
+    }
+
+    val sizePortionList = listOf(
+        KalTrackerConstants.SIZE_PORTION.FULL_PORTION,
+        KalTrackerConstants.SIZE_PORTION.HALF_PORTION,
+        KalTrackerConstants.SIZE_PORTION.THIRD_PORTION,
+        KalTrackerConstants.SIZE_PORTION.QUARTER_PORTION,
+        KalTrackerConstants.SIZE_PORTION.FIFTH_PORTION,
+        KalTrackerConstants.SIZE_PORTION.SIXTH_PORTION
+    )
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Box {
+            Row(horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .clickable { isListExpanded.value = true }
+                    .padding(8.dp)) {
+                Text(text = stringResource(id = R.string.ingestion_config_size_portion) + ":")
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(text = sizePortion.toString())
+                Image(
+                    painter = painterResource(id = R.drawable.baseline_arrow_drop_down_24),
+                    contentDescription = "DropDown Icon"
+                )
+            }
+        }
+        DropdownMenu(
+            expanded = isListExpanded.value,
+            onDismissRequest = { isListExpanded.value = false }
+        ) {
+            sizePortionList.forEachIndexed { index, sizePortion ->
+                DropdownMenuItem(
+                    text = {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.Center
+                        ) {
+                            Text(text = sizePortion.toString())
+                        }
+                    },
+                    onClick = {
+                        isListExpanded.value = false
+                        //sizePortion = sizePortion.toDouble()
+                        itemPostion.value = index
+                    }
+                )
+            }
+        }
+    }
+}
+
+
+
+
+
+@Composable
+fun HeaderText(nutriments: String){
+    Text(modifier = Modifier.padding(start = 16.dp),
+        fontSize = 22.sp,
+        fontWeight = FontWeight.Bold,
+        text = nutriments
+    )
 }

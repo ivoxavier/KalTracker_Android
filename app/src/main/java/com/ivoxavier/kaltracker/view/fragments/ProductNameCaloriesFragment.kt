@@ -180,7 +180,7 @@ fun registerIngestionProduct(viewModel: QuickAdditionViewModel){
 
 @Composable
 fun NutriscoreList(viewModel: QuickAdditionViewModel){
-    var selectedNutriscore by remember { mutableStateOf("") } // Add this line
+    var selectedNutriscore by remember { mutableStateOf("") }
     val isListExpanded = remember {
         mutableStateOf(false)
     }
@@ -228,7 +228,7 @@ fun NutriscoreList(viewModel: QuickAdditionViewModel){
                     DropdownMenuItem(
                         text = {
                             Row(verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.Center,) {
+                                horizontalArrangement = Arrangement.Center) {
                                 Box(
                                     modifier = Modifier
                                         .size(24.dp)

@@ -136,4 +136,18 @@ class KalTrackerConstants private constructor(){
         }
     }
     //endregion
+
+    //region IngestionConfigActivity
+    object SIZE_PORTION{
+        const val FULL_PORTION = 1.0 // 1/1
+        const val HALF_PORTION = 0.5 // 1/2
+        const val THIRD_PORTION = 0.33 // 1/3
+        const val QUARTER_PORTION = 0.25 // 1/4
+        const val FIFTH_PORTION = 0.2 // 1/5
+        const val SIXTH_PORTION = 0.17 // 1/6
+    }
+
+
+    //endregion
+
 }

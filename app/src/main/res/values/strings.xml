@@ -79,6 +79,8 @@
     <string name="online_sources_open_foods_facts_api">OpenFoodsFacts</string>
     <string name="barcode_canceled_reading">Scanning Canceled</string>
     <string name="ingestion_config_header_title">Set Your Ingestion</string>
+    <string name="ingestion_config_size_portion">Size Portion</string>
+    <string name="ingestion_config_quantity">Quantity</string>
 
 
 
