@@ -14,4 +14,15 @@ interface IngestionDAO {
     @Query("SELECT * FROM ingestions")
     fun getAll(): List<IngestionModel>
 
+    @Query("SELECT SUM(cal) FROM ingestions WHERE meal = 0")
+    fun getBreakFastCalories(): Int
+
+    @Query("SELECT SUM(cal) FROM ingestions WHERE meal = 1")
+    fun getLunchCalories(): Int
+
+    @Query("SELECT SUM(cal) FROM ingestions WHERE meal = 2")
+    fun getDinnerCalories(): Int
+
+    @Query("SELECT SUM(cal) FROM ingestions WHERE meal = 3")
+    fun getSnackCalories(): Int
 }

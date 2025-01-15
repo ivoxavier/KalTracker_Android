@@ -44,6 +44,10 @@ class HomeActivity: ComponentActivity() {
 
         viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
         viewModel.setRecommendedCalories()
+        viewModel.setBreakFastCalories()
+        viewModel.setLunchCalories()
+        viewModel.setDinnerCalories()
+        viewModel.setSnackCalories()
 
 
         super.onCreate(savedInstanceState)
@@ -125,7 +129,7 @@ class HomeActivity: ComponentActivity() {
                         //mealCategory = 0,
                         image = R.drawable.breakfast_svgrepo_com,
                         title = resources.getString(R.string.home_ingestion_card_breakfast),
-                        totalCalories = 0,
+                        totalCalories = viewModel.breakFastCalories.value ?: 0,
                         onClick = {
                             val intent = Intent(applicationContext, QuickListFoodsActivity::class.java)
                             intent.putExtra("mealCategory", 0)
@@ -136,7 +140,7 @@ class HomeActivity: ComponentActivity() {
                         //mealCategory = 1
                         image = R.drawable.fried_chicken_meal_svgrepo_com,
                         title = resources.getString(R.string.home_ingestion_card_lunch),
-                        totalCalories = 0,
+                        totalCalories = viewModel.lunchCalories.value ?: 0,
                         onClick = {
                             val intent = Intent(applicationContext, QuickListFoodsActivity::class.java)
                             intent.putExtra("mealCategory", 1)
@@ -147,7 +151,7 @@ class HomeActivity: ComponentActivity() {
                         //mealCategory = 2
                         image = R.drawable.dinner_svgrepo_com,
                         title = resources.getString(R.string.home_ingestion_card_dinner),
-                        totalCalories = 0,
+                        totalCalories = viewModel.dinnerCalories.value ?: 0,
                         onClick = {
                             val intent = Intent(applicationContext, QuickListFoodsActivity::class.java)
                             intent.putExtra("mealCategory", 2)
@@ -158,7 +162,7 @@ class HomeActivity: ComponentActivity() {
                         //mealCategory = 3
                         image = R.drawable.snack_snacks_svgrepo_com,
                         title = resources.getString(R.string.home_ingestion_card_snacks),
-                        totalCalories = 0,
+                        totalCalories = viewModel.snackCalories.value ?: 0,
                         onClick = {
                             val intent = Intent(applicationContext, QuickListFoodsActivity::class.java)
                             intent.putExtra("mealCategory", 3)
@@ -173,6 +177,11 @@ class HomeActivity: ComponentActivity() {
     override fun onResume() {
         super.onResume()
         viewModel.setRecommendedCalories()
+        viewModel.setBreakFastCalories()
+        viewModel.setLunchCalories()
+        viewModel.setDinnerCalories()
+        viewModel.setSnackCalories()
+
     }
 }
 

@@ -1,5 +1,6 @@
 package com.ivoxavier.kaltracker.service.repository
 
+import android.app.Application
 import android.content.Context
 import android.util.Log
 import com.ivoxavier.kaltracker.R
@@ -9,10 +10,10 @@ import com.ivoxavier.kaltracker.service.repository.model.IngestionModel
 import com.ivoxavier.kaltracker.service.repository.model.ProductModel
 import com.ivoxavier.kaltracker.service.repository.remote.ProductService
 import com.ivoxavier.kaltracker.service.repository.remote.RetrofitClient
+import com.ivoxavier.kaltracker.viewmodel.HomeViewModel
 
 class IngestionRepository(context: Context): BaseRepository(context) {
     private val kalTrackerDatabase = KalTrackerDatabase.getDataBase(context).ingestionsDao()
-
     private val remote = RetrofitClient.getService(ProductService::class.java)
 
     companion object{
@@ -28,6 +29,22 @@ class IngestionRepository(context: Context): BaseRepository(context) {
 
     fun insert(ingestion: IngestionModel):Boolean{
         return kalTrackerDatabase.insert(ingestion) > 0
+    }
+
+    fun getBreakFastCalories(): Int{
+        return kalTrackerDatabase.getBreakFastCalories()
+    }
+
+    fun getLunchCalories(): Int{
+        return kalTrackerDatabase.getLunchCalories()
+    }
+
+    fun getDinnerCalories(): Int{
+        return kalTrackerDatabase.getDinnerCalories()
+    }
+
+    fun getSnackCalories(): Int{
+        return kalTrackerDatabase.getSnackCalories()
     }
 
     fun getProduct(barcode:String, listener: APIListener<ProductModel>){

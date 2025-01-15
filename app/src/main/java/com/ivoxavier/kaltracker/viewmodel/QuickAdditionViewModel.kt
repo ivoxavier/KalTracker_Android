@@ -13,6 +13,8 @@ class QuickAdditionViewModel(application: Application) : AndroidViewModel(applic
 
     private val repository = IngestionRepository(application)
 
+    private val viewModel = HomeViewModel(application)
+
     //need to fetch the id of user
     private val userDAO : UserDAO = KalTrackerDatabase.getDataBase(application).userDao()
 
@@ -69,6 +71,11 @@ class QuickAdditionViewModel(application: Application) : AndroidViewModel(applic
 
     fun save(ingestion: IngestionModel){
         repository.insert(ingestion)
+        viewModel.setBreakFastCalories()
+        viewModel.setLunchCalories()
+        viewModel.setDinnerCalories()
+        viewModel.setSnackCalories()
+
     }
 
 
